@@ -139,6 +139,16 @@
   textarea {
       resize: none;
   }
+  .open .dropdown-toggle {
+      color: #fff;
+      background-color: #555 !important;
+  }
+  .dropdown-menu li a {
+      color: #000 !important;
+  }
+  .dropdown-menu li a:hover {
+      background-color: red !important;
+  }
   </style>
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -158,6 +168,13 @@
         <li><a href="#home">HOME</a></li>
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#dogbog">EW</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="./backgroundaudio.html">Background Audio Test</a></li>
+          </ul>
+        </li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
 
       </ul>
