@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <title>backgroundaudio</title>
-	  <style>
+<head>
+	<title>Background Audio Test</title>
+	<style>
 		a {
-		  color:hotpink;
-		  }
-		h1, p{
-		  color:white;
-		  }
-	  	body {
-    			background-image: url("./spooky.gif");
+			color:hotpink;
 		}
- 
-	  </style>
- </head>
-  <body>
-  	<IFRAME height=0 width=0 frameborder=0 src="./Lobby_Time.mp3"></IFRAME>
-	<script type="text/javascript" src="/i.js"></script><script type="text/javascript">if(typeof(urchinTracker)=='function'){_uacct="UA-230305-2";_udn="none";_uff=false;urchinTracker();}</script><script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script> <script type="text/javascript">_qacct="p-44naSaXtNJt26";quantserve();</script>
-    	<h1>あなたは何をしていますか？</h1>
-    	<p>搞什麼鬼啊</p>
-    	<p>music is from incomptech</p>
-	<a href="./">bAck</a>
-  </body>
+		h1, p{
+			color:white;
+		}
+	  	body {
+    		background-image: url("./spooky.gif");
+		}
+	</style>
+</head>
+<body>
+
+    <h1>私はあなたの昼食を食べる</h1>
+    <p>你道理在搞什麼鬼啊？！</p>
+    <p>music (Lobby Time) is from incomptech</p>
+	<div id="music">
+	<audio autoplay>
+	  <source src="Lobby_Time.mp3">
+	  <p>If you can read this, your browser does not support the audio element.</p>
+	</audio>
+	<a href="./">Back</a>
+</div>
+</body>
 </html>
