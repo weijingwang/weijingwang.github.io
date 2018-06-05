@@ -170,9 +170,15 @@
 <script>
 	function congrats (argument) {
 		document.getElementById("lennybob").style.visibility = "hidden";
-		confirm("are you cool");
-		alert("go back");
-		window.location = "";
+
+    if (confirm("are you cool")) {
+      alert("cool")
+    }
+    else {
+      alert("go back");
+      window.location = "";
+    }
+
 	}
 </script>
 </body>
