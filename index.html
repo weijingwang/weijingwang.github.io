@@ -62,6 +62,9 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
   }
+  .secret {
+    color: black;
+  }
   </style>
 </head>
 <body>
@@ -211,7 +214,9 @@
   <br>
 </div>
 <center>
-<div id="lennybob" onmouseover="congrats(this)"><img src="./shock.png"></div></center>
+  <div id="lennybob" onmouseover="congrats(this)"><img src="./shock.png"></div>
+</center>
+<a href="./eye.png"><h1 class="secret">GS</h1></a>
 <script>
   //face interaction
 	function congrats (argument) {
@@ -233,6 +238,7 @@
   function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
   }
+
 </script>
 </body>
 </html>
