@@ -22,7 +22,7 @@
   	color: red;
   }
   body {
-  	background: url(./island_jack.png) no-repeat center center fixed; 
+  	background: url(./old/item2.jpg) no-repeat center center fixed; 
   	-webkit-background-size: cover;
   	-moz-background-size: cover;
   	-o-background-size: cover;
@@ -65,6 +65,7 @@
   }
   .secret {
     color: black;
+    background-color:black;
   }
   </style>
 </head>
@@ -72,7 +73,7 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="#location">Location</a>
-  <a href="https://twitter.com/fruitdogs" target="_blank">tweeter<img src="./bird.png"></a>
+  <a href=#tweeter" target="_blank"><img src="./bird.png"></a>
   <p>you like gams? i lik e here is fun one but you need python3 and pygame</p>
   <a href="https://pyweek.org/e/Jumbi/" target="_blank">Jim's Big Win</a>
 </div>
@@ -215,9 +216,11 @@
   <br>
 </div>
 <center>
-  <div id="lennybob" onmouseover="congrats(this)"><img src="./james.png" height="300"></div>
+  <div id="lennybob" onmouseover="congrats(this)"><img src="./island_jack.png" height="300"></div>
 </center>
-<a href="./scene2GS.png"><h1 class="secret">GS</h1></a>
+<div class="secret">
+	<a href="./scene2GS.png"><h1 class="secret">GS</h1></a>
+</div>
 <script>
   //face interaction
 	function congrats (argument) {
