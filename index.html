@@ -6,7 +6,10 @@
   <title>Weijing website</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f4f4;color:#333;line-height:1.6}header{background:#333;color:#fff;padding:20px;text-align:center}h1{font-size:2rem}.intro{max-width:800px;margin:20px auto;padding:0 20px;display:flex;align-items:center;gap:20px}.intro img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid #333;flex-shrink:0}.intro p{font-size:1.1rem;color:#555;line-height:1.8}.contact-links{display:flex;gap:15px;margin-top:15px}.contact-links a{color:#0077cc;text-decoration:none;font-size:1rem;transition:color 0.3s ease}.contact-links a:hover{text-decoration:underline}.contact-links a:visited{color:#0077cc}.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;max-width:1200px;margin:0 auto}.art-item{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}.art-item:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.2)}.art-item img{width:100%;height:200px;object-fit:cover;display:block}.art-item .description{padding:15px;text-align:center}.art-item .description h3{font-size:1.2rem;margin-bottom:10px}.art-item .description p{font-size:0.9rem;color:#666}footer{background:#333;color:#fff;text-align:center;padding:10px;margin-top:20px}
-
+    a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Makes the link take the text color of its parent */
+}
     /* Mobile-Friendly Adjustments */
     @media (max-width: 768px) {
       .intro {
@@ -52,14 +55,14 @@
 
   <!-- Introduction Section with Headshot -->
   <div class="intro">
-    <img src="assets/images/headshot.webp" alt="Your Name">
+    <img src="assets/images/headshot.webp" alt="weijing headshot">
     <div>
       <p>
         Welcome to my website! Here you can find some of my current and past works that I did by myself or in school.
       </p>
       <!-- Contact Links -->
       <div class="contact-links">
-        <a href=#  rel="noopener noreferrer">Resume</a>
+        <a href=testpage.html  rel="noopener noreferrer">Resume</a>
         <a href="https://github.com/weijingwang" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/weijing-wang-445150231" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://pyweek.org/u/speedlimit35/" target="_blank" rel="noopener noreferrer">Pyweek</a>
@@ -75,30 +78,34 @@
 
   <script>
     const artData = [
-      { image: "capstone_demo2.webp", alt: "capstone winter", title: "Capstone winter demo2", description: "A capstone demo for using camera input to convert to headphone sound for visually impaired." },
-      { image: "ECE241_intrapredict.webp", alt: "ECE241 project", title: "H.264 intrapredict project", description: "Project for ECE241 to implement H.264 intraprediction and see how different modes affect prediction"},
-      { image: "capstone_fall.webp", alt: "capstone fall", title: "Capstone depth map test", description: "Capstone experiments to evaluate effectiveness for depth maps DepthPro and MoGe" },
-      { image: "ECE153A.webp", alt: "ECE153A project", title: "FPGA chromatic tuner", description: "ECE153A FPGA final project of chromatic tuner. Includes realtime tuner screen and spectrogram." },
+      {id: 1, image: "capstone_demo2.webp", alt: "capstone winter", title: "Capstone winter demo2", description: "A capstone demo for using camera input to convert to headphone sound for visually impaired." },
+      {id: 2, image: "ECE241_intrapredict.webp", alt: "ECE241 project", title: "H.264 intrapredict project", description: "Project for ECE241 to implement H.264 intraprediction and see how different modes affect prediction"},
+      {id: 3, image: "capstone_fall.webp", alt: "capstone fall", title: "Capstone depth map test", description: "Capstone experiments to evaluate effectiveness for depth maps DepthPro and MoGe" },
+      {id: 4, image: "ECE153A.webp", alt: "ECE153A project", title: "FPGA chromatic tuner", description: "ECE153A FPGA final project of chromatic tuner. Includes realtime tuner screen and spectrogram." },
      
-      { image: "pyweek38.webp", alt: "pyweek38 entry", title: "pyweek38", description: "Solo entry: Knight's Honor. A knights errant is seeking to perform extrodinary feats to elavate honor and fame when he finds a dwarf who is begging for a boon..." },
-      { image: "ring_resonator.webp", alt: "utokyo research", title: "uTokyo ring resonator research", description: "Worked on simulating new comb generator using ring resonators and phase modulators in Matlab in Professor Nakano's lab." },
-      { image: "theremin.webp", alt: "ECE137B project", title: "Theremin design project", description: "ECE137B final project to design and build theremin using heterodyning." },
-      { image: "ECE120A.webp", alt: "ECE120A project", title: "NMOS fabrication class", description: "ECE120A final project where we fabricated NMOS transistors in the instructional cleanroom." },
+      {id: 5, image: "pyweek38.webp", alt: "pyweek38 entry", title: "pyweek38", description: "Solo entry: Knight's Honor. A knights errant is seeking to perform extrodinary feats to elavate honor and fame when he finds a dwarf who is begging for a boon..." },
+      {id: 6,  image: "ring_resonator.webp", alt: "University of Tokyo summer research", title: "University of Tokyo summer research intern", description: "Worked on simulating new comb generator using ring resonators and phase modulators in Matlab in Professor Nakano's lab." },
+      {id: 7, image: "theremin.webp", alt: "ECE137B project", title: "Theremin design project", description: "ECE137B final project to design and build theremin using heterodyning." },
+      {id: 8, image: "ECE120A.webp", alt: "ECE120A project", title: "NMOS fabrication class", description: "ECE120A final project where we fabricated NMOS transistors in the instructional cleanroom." },
 
-      { image: "pyweek36.webp", alt: "pyweek36 entry", title: "pyweek36", description: "Team entry with chinkaraoshiman: apocalypse darkness rats. This game is about breeding rats until there are 8 billion of them..." },
-      { image: "pyweek35.webp", alt: "pyweek35 entry", title: "pyweek35", description: "Team entry with chinkaraoshiman: Chinkara goat paradise. This goat farm will never sell you any goats ... But what you discover will shock the world..." },
-      { image: "pyweek34.webp", alt: "pyweek34 entry", title: "pyweek34", description: "Solo entry: tasty red bean simulator. Work on red planet to serve red bean dishes to those creatures and there is an unexpected customer." }
+      {id: 9, image: "pyweek36.webp", alt: "pyweek36 entry", title: "pyweek36", description: "Team entry with chinkaraoshiman: apocalypse darkness rats. This game is about breeding rats until there are 8 billion of them..." },
+      {id: 10, image: "pyweek35.webp", alt: "pyweek35 entry", title: "pyweek35", description: "Team entry with chinkaraoshiman: Chinkara goat paradise. This goat farm will never sell you any goats ... But what you discover will shock the world..." },
+      {id: 11, image: "pyweek34.webp", alt: "pyweek34 entry", title: "pyweek34", description: "Solo entry: tasty red bean simulator. Work on red planet to serve red bean dishes to those creatures and there is an unexpected customer." }
     ];
 
     const gallery = document.getElementById("gallery");
     gallery.innerHTML = artData.map(item => `
-      <div class="art-item">
-        <img src="assets/images/placeholder.webp" data-src="assets/images/${item.image}" alt="${item.alt}" loading="lazy" onerror="handleImageError(this)">
-        <div class="description">
-          <h3>${item.title}</h3>
-          <p>${item.description}</p>
+        <div class="art-item">
+                <a href="subpage.html?id=${item.id}" class="art-item">
+
+            <img src="assets/images/placeholder.webp" data-src="assets/images/${item.image}" alt="${item.alt}" loading="lazy" onerror="handleImageError(this)">
+            <div class="description">
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            </div>
+                    </a>
+
         </div>
-      </div>
     `).join("");
 
     function handleImageError(img) {
