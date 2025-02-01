@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weijing website</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f4f4;color:#333;line-height:1.6}header{background:#333;color:#fff;padding:20px;text-align:center}h1{font-size:2rem}.intro{max-width:800px;margin:20px auto;padding:0 20px;display:flex;align-items:center;gap:20px}.intro img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid #333;flex-shrink:0}.intro p{font-size:1.1rem;color:#555;line-height:1.8}.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;max-width:1200px;margin:0 auto}.art-item{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1);transition:transform 0.3s ease,box-shadow 0.3s ease}.art-item:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.2)}.art-item img{width:100%;height:200px;object-fit:cover;display:block}.art-item .description{padding:15px;text-align:center}.art-item .description h3{font-size:1.2rem;margin-bottom:10px}.art-item .description p{font-size:0.9rem;color:#666}footer{background:#333;color:#fff;text-align:center;padding:10px;margin-top:20px}
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f4f4;color:#333;line-height:1.6}header{background:#333;color:#fff;padding:20px;text-align:center}h1{font-size:2rem}.intro{max-width:800px;margin:20px auto;padding:0 20px;display:flex;align-items:center;gap:20px}.intro img{width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid #333;flex-shrink:0}.intro p{font-size:1.1rem;color:#555;line-height:1.8}.contact-links{display:flex;gap:15px;margin-top:15px}.contact-links a{color:#0077cc;text-decoration:none;font-size:1rem;padding:8px 12px;border-radius:5px;background:#fff;border:1px solid #0077cc;transition:background 0.3s ease,color 0.3s ease}.contact-links a:hover{background:#0077cc;color:#fff}.contact-links a:visited{color:#0077cc} /* Prevent visited links from turning purple */.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;max-width:1200px;margin:0 auto}.art-item{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1);transition:transform 0.3s ease,box-shadow 0.3s ease;cursor:pointer}.art-item:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.2)}.art-item img{width:100%;height:200px;object-fit:cover;display:block}.art-item .description{padding:15px;text-align:center}.art-item .description h3{font-size:1.2rem;margin-bottom:10px}.art-item .description p{font-size:0.9rem;color:#666}footer{background:#333;color:#fff;text-align:center;padding:10px;margin-top:20px}
   </style>
 <body>
   <header>
@@ -14,17 +14,26 @@
 
   <!-- Introduction Section with Headshot -->
   <div class="intro">
-    <img src="assets/images/headshot.webp" alt="weijing img">
-    <p>
-      Welcome to my website! Here you can find some of my current and past works that I did by myself or in school.
-    </p>
+    <img src="assets/images/headshot.webp" alt="Your Name">
+    <div>
+      <p>
+        Welcome to my website! Here you can find some of my current and past works that I did by myself or in school.
+      </p>
+      <!-- Contact Links -->
+      <div class="contact-links">
+        <a href=#  rel="noopener noreferrer">Resume</a>
+        <a href="https://github.com/weijingwang" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/weijing-wang-445150231" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://pyweek.org/u/speedlimit35/" target="_blank" rel="noopener noreferrer">Pyweek</a>
+      </div>
+    </div>
   </div>
 
   <div class="gallery" id="gallery"></div>
 
-  <footer>
+  <!-- <footer>
     weijing footer contacts ...
-  </footer>
+  </footer> -->
 
   <script>
     const artData = [
