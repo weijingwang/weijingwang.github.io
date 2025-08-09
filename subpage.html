@@ -4,69 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Art Subpage</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f4f4;color:#333;line-height:1.6}header{background:#333;color:#fff;padding:20px;text-align:center}h1{font-size:2rem}.content{max-width:800px;margin:20px auto;padding:20px;background:#fff;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.content img{max-width:100%;height:auto;border-radius:8px;margin-bottom:20px}.content h2{font-size:1.5rem;margin-bottom:10px}.content p{font-size:1.1rem;color:#555;line-height:1.8}.contact-link{display:inline-block;margin-top:20px;color:#0077cc;text-decoration:none;font-size:1rem}.contact-link:hover{text-decoration:underline}.back-btn{display:inline-block;margin-top:20px;padding:10px 20px;background:#0077cc;color:#fff;text-decoration:none;border-radius:5px;transition:background 0.3s ease}.back-btn:hover{background:#005fa3}footer{background:#333;color:#fff;text-align:center;padding:10px;margin-top:20px}
-    a {
-    text-decoration: none; /* Removes underline */
-    color: inherit; /* Makes the link take the text color of its parent */
-}
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <a href="index.html" ><h1>Weijing website</h1></a>
+    <a href="index.html"><h1>Weijing website</h1></a>
   </header>
 
-
   <div class="content" id="content">
-    <!-- Content will be dynamically loaded here -->
+    <div class="loading">Loading...</div>
   </div>
 
-  <!-- Back Button -->
   <div style="text-align: center; margin-top: 20px;">
     <a href="index.html" class="back-btn">Back to Main Page</a>
   </div>
 
-  <!-- <footer>
-
-  </footer> -->
-
-  <script>
-    // Get the art item ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const artId = urlParams.get('id');
-
-    // Art data (same as in the main page)
-    const artData = [
-      {id: 1, image: "capstone_demo2.webp", alt: "capstone winter", title: "Capstone winter demo2", description: "A capstone demo for using camera input to convert to headphone sound for visually impaired." },
-      {id: 2, image: "ECE241_intrapredict.webp", alt: "ECE241 project", title: "H.264 intrapredict project", description: "Project for ECE241 to implement H.264 intraprediction and see how different modes affect prediction"},
-      {id: 3, image: "capstone_fall.webp", alt: "capstone fall", title: "Capstone depth map test", description: "Capstone experiments to evaluate effectiveness for depth maps DepthPro and MoGe" },
-      {id: 4, image: "ECE153A.webp", alt: "ECE153A project", title: "FPGA chromatic tuner", description: "ECE153A FPGA final project of chromatic tuner. Includes realtime tuner screen and spectrogram." },
-     
-      {id: 5, image: "pyweek38.webp", alt: "pyweek38 entry", title: "pyweek38", description: "Solo entry: Knight's Honor. A knights errant is seeking to perform extrodinary feats to elavate honor and fame when he finds a dwarf who is begging for a boon..." },
-      {id: 6,  image: "ring_resonator.webp", alt: "University of Tokyo summer research", title: "University of Tokyo summer research intern", description: "Worked on simulating new comb generator using ring resonators and phase modulators in Matlab in Professor Nakano's lab." },
-      {id: 7, image: "theremin.webp", alt: "ECE137B project", title: "Theremin design project", description: "ECE137B final project to design and build theremin using heterodyning." },
-      {id: 8, image: "ECE120A.webp", alt: "ECE120A project", title: "NMOS fabrication class", description: "ECE120A final project where we fabricated NMOS transistors in the instructional cleanroom." },
-
-      {id: 9, image: "pyweek36.webp", alt: "pyweek36 entry", title: "pyweek36", description: "Team entry with chinkaraoshiman: apocalypse darkness rats. This game is about breeding rats until there are 8 billion of them..." },
-      {id: 10, image: "pyweek35.webp", alt: "pyweek35 entry", title: "pyweek35", description: "Team entry with chinkaraoshiman: Chinkara goat paradise. This goat farm will never sell you any goats ... But what you discover will shock the world..." },
-      {id: 11, image: "pyweek34.webp", alt: "pyweek34 entry", title: "pyweek34", description: "Solo entry: tasty red bean simulator. Work on red planet to serve red bean dishes to those creatures and there is an unexpected customer." }
-    ];
-
-    // Find the selected art item
-    const selectedArt = artData.find(item => item.id === parseInt(artId));
-
-    // Dynamically load the content
-    const contentDiv = document.getElementById('content');
-    if (selectedArt) {
-      contentDiv.innerHTML = `
-        <img src="assets/images/${selectedArt.image}" alt="${selectedArt.alt}">
-        <h2>${selectedArt.title}</h2>
-        <p>${selectedArt.description}</p>
-      `;
-    } else {
-      contentDiv.innerHTML = `<p>Artwork not found.</p>`;
-    }
-  </script>
+  <script src="portfolio.js"></script>
 </body>
 </html>

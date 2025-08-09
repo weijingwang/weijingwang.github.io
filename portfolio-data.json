@@ -1,0 +1,87 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "image": "capstone_demo2.webp",
+      "alt": "capstone winter",
+      "title": "Capstone winter demo2",
+      "description": "A capstone demo for using camera input to convert to headphone sound for visually impaired.",
+      "externalLink": "https://github.com/jordanprescott/shiv_capstone/tree/main/depth_map/wjstuff/demo_2"
+    },
+    {
+      "id": 2,
+      "image": "ECE241_intrapredict.webp",
+      "alt": "ECE241 project",
+      "title": "H.264 intrapredict project",
+      "description": "Project for ECE241 to implement H.264 intraprediction and see how different modes affect prediction"
+    },
+    {
+      "id": 3,
+      "image": "capstone_fall.webp",
+      "alt": "capstone fall",
+      "title": "Capstone depth map test",
+      "description": "Capstone experiments to evaluate effectiveness for depth maps DepthPro and MoGe"
+    },
+    {
+      "id": 4,
+      "image": "ECE153A.webp",
+      "alt": "ECE153A project",
+      "title": "FPGA chromatic tuner",
+      "description": "ECE153A FPGA final project of chromatic tuner. Includes realtime tuner screen and spectrogram."
+    },
+    {
+      "id": 5,
+      "image": "pyweek38.webp",
+      "alt": "pyweek38 entry",
+      "title": "pyweek38",
+      "description": "Solo entry: Knight's Honor. A knights errant is seeking to perform extrodinary feats to elavate honor and fame when he finds a dwarf who is begging for a boon...",
+      "externalLink": "https://pyweek.org/e/speedlimit3538/"
+    },
+    {
+      "id": 6,
+      "image": "ring_resonator.webp",
+      "alt": "University of Tokyo summer research",
+      "title": "University of Tokyo summer research intern",
+      "description": "Worked on simulating new comb generator using ring resonators and phase modulators in Matlab in Professor Nakano's lab."
+    },
+    {
+      "id": 7,
+      "image": "theremin.webp",
+      "alt": "ECE137B project",
+      "title": "Theremin design project",
+      "description": "ECE137B final project to design and build theremin using heterodyning.",
+      "externalLink": "https://youtube.com/playlist?list=PLx4AtxZhI6pdQVO3Ire1qrHj8c2FD9aWZ&si=kICJOWKmm2xYMiI6"
+    },
+    {
+      "id": 8,
+      "image": "ECE120A.webp",
+      "alt": "ECE120A project",
+      "title": "NMOS fabrication class",
+      "description": "ECE120A final project where we fabricated NMOS transistors in the instructional cleanroom."
+    },
+    {
+      "id": 9,
+      "image": "pyweek36.webp",
+      "alt": "pyweek36 entry",
+      "title": "pyweek36",
+      "description": "Team entry with chinkaraoshiman: apocalypse darkness rats. This game is about breeding rats until there are 8 billion of them...",
+      "externalLink": "https://pyweek.org/e/chinkaraoshim36/"
+    },
+    {
+      "id": 10,
+      "image": "pyweek35.webp",
+      "alt": "pyweek35 entry",
+      "title": "pyweek35",
+      "description": "Team entry with chinkaraoshiman: Chinkara goat paradise. This goat farm will never sell you any goats ... But what you discover will shock the world...",
+      "externalLink": "https://pyweek.org/e/chinkaraoshiman/"
+    },
+    {
+      "id": 11,
+      "image": "pyweek34.webp",
+      "alt": "pyweek34 entry",
+      "title": "pyweek34",
+      "description": "Solo entry: tasty red bean simulator. Work on red planet to serve red bean dishes to those creatures and there is an unexpected customer.",
+      "externalLink": "https://pyweek.org/e/speedlimit3534/"
+    }
+  ]
+}
