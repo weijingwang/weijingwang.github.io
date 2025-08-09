@@ -75,13 +75,12 @@ h1 {
 
 /* Last Updated on Index Page */
 .last-updated {
-  text-align: center;
-  margin: 20px auto;
-  max-width: 800px;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.9em;
+  margin: 0.2em 0 0.6em 0;
+  color: #888 !important;
   font-style: italic;
 }
+
 
 /* Gallery */
 .gallery {
@@ -146,10 +145,10 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Subpage Layout Order: Title -> Image -> Date -> Subtitle -> Content */
+/* Subpage Layout Order: Title -> Date -> Image -> Subtitle -> Content */
 .content h2 {
   font-size: 1.8rem;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #333;
   text-align: center;
 }
@@ -159,6 +158,7 @@ h1 {
   width: 100%;
   height: 300px;
   margin-bottom: 15px;
+  margin-top: 15px;
   border-radius: 8px;
   overflow: hidden;
   background: #f9f9f9;
@@ -178,17 +178,9 @@ h1 {
   text-align: center;
   margin-bottom: 10px !important;
   margin-top: 0 !important;
-  font-size: 0.9rem !important;
+  font-size: 1.1rem !important;
   color: #666 !important;
   font-style: italic;
-}
-
-.last-updated-subpage {
-  text-align: center;
-  font-size: 0.85rem !important;
-  color: #888 !important;
-  font-style: italic;
-  margin-bottom: 20px !important;
 }
 
 /* Subtitle styling */

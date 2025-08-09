@@ -10,7 +10,7 @@ function loadProjects() {
     });
 }
 
-function formatDate(dateString) {
+function formatDate(dateString, includeDay = false) {
   const year = dateString.substring(0, 4);
   const month = dateString.substring(4, 6);
   const day = dateString.substring(6, 8);
@@ -18,7 +18,11 @@ function formatDate(dateString) {
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   
-  return `${monthNames[parseInt(month) - 1]} ${year}`;
+  if (includeDay) {
+    return `${monthNames[parseInt(month) - 1]} ${parseInt(day)}, ${year}`;
+  } else {
+    return `${monthNames[parseInt(month) - 1]} ${year}`;
+  }
 }
 
 function parseMarkdown(text) {
@@ -75,7 +79,7 @@ function renderGallery() {
       // Add last updated text
       const lastUpdatedDiv = document.getElementById("last-updated");
       if (lastUpdatedDiv) {
-        lastUpdatedDiv.innerHTML = `Last updated ${formatDate(lastUpdated)}`;
+        lastUpdatedDiv.innerHTML = `Last updated ${formatDate(lastUpdated, true)}`;
       }
       
       // Sort projects by publishedDate in descending order (newest first)
@@ -143,15 +147,14 @@ async function renderSubpage() {
     }
     
     const lastUpdatedText = selectedArt.lastUpdated ? 
-      `<p class="last-updated-subpage">Last updated ${formatDate(selectedArt.lastUpdated)}</p>` : '';
+      ` • Last updated ${formatDate(selectedArt.lastUpdated, true)}` : '';
     
     contentDiv.innerHTML = `
       <h2>${selectedArt.title}</h2>
+      <p class="published-date">Published ${formatDate(selectedArt.publishedDate, true)}${lastUpdatedText}</p>
       <div class="subpage-image-container">
         <img src="assets/images/${selectedArt.image}" alt="${selectedArt.alt}" onerror="this.src='./assets/images/default.gif'">
       </div>
-      <p class="published-date">Published ${formatDate(selectedArt.publishedDate)}</p>
-      ${lastUpdatedText}
       ${subtitle}
       <div class="markdown-content">
         ${parsedContent}
