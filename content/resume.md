@@ -1,10 +1,14 @@
-# [Your Name]
-
-**Email:** your.email@ucsb.edu  
-**Phone:** +1-a43t5y432rew
-**Website:** [Your Website]  
-
 ---
+title: "Weijing Resume"
+description: "Weijing's short resume"
+image: ""
+alt: "Weijing's short resume"
+publishedDate: "20250809"
+hidden: true
+---
+
+**Email:** weijing at ucsb dot edu  
+
 
 ## Education
 
@@ -17,7 +21,6 @@
 **Orange County School of the Arts** - Santa Ana, CA  
 *High School Diploma, Guitar Conservatory* | Sep 2016 - Jun 2021
 
----
 
 ## Experience
 
@@ -45,7 +48,6 @@
 - **SQL trends analysis:** Analyzed automotive OBD-II DTC code database in SQL to identify vehicle issue trends according to Year/Make/Model/Engine
 - **Machine Learning:** Applied k-clustering on database to group DTC codes. Efforts led up to eventual productization of AI-generated fix recommendation system
 
----
 
 ## Projects
 
@@ -61,7 +63,7 @@ FPGA Artix A7 implementation of a real-time chromatic tuner using Vivado and Vit
 **NMOS cleanroom fabrication**  
 Fabricated and characterized NMOS transistors in the instructional cleanroom. Used mask aligners, profilometer, HF, and other cleanroom tools
 
----
+
 
 ## Skills
 

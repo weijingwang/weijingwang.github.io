@@ -1,4 +1,4 @@
-// Simple portfolio JavaScript
+// Portfolio JavaScript with automatic markdown loading
 
 // Utilities
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
@@ -67,24 +67,134 @@ function parseMarkdown(text) {
     .join('\n');
 }
 
-// Data loading
-async function loadData() {
-  const response = await fetch('portfolio-data.json');
-  return response.json();
+// Parse frontmatter from markdown
+function parseFrontmatter(content) {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = content.match(frontmatterRegex);
+  
+  if (!match) {
+    return { metadata: {}, content: content };
+  }
+  
+  const [, yamlContent, markdownContent] = match;
+  const metadata = {};
+  
+  // Simple YAML parser for basic key-value pairs
+  yamlContent.split('\n').forEach(line => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > 0) {
+      const key = line.substring(0, colonIndex).trim();
+      const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+      metadata[key] = value;
+    }
+  });
+  
+  return { metadata, content: markdownContent };
 }
 
-async function loadMarkdown(projectId) {
+// Get list of markdown files
+async function getMarkdownFiles() {
+  // Since we can't list directory contents directly in the browser,
+  // we'll try to load a manifest file or use a known list
   try {
-    const response = await fetch(`content/${projectId}.md`);
-    return response.ok ? await response.text() : null;
-  } catch {
-    return null;
+    const response = await fetch('content/manifest.json');
+    if (response.ok) {
+      const manifest = await response.json();
+      return manifest.files || [];
+    }
+  } catch (error) {
+    // Fallback: try common filenames
+    console.log('No manifest found, using fallback file list');
   }
+  
+  // Fallback list - you can expand this or create a manifest.json file
+  const commonFiles = [
+    'resume.md',
+    'pyweek34.md',
+    'pyweek35.md',
+    'ECE120A.md',
+    'ECE153A.md',
+    'pyweek36.md',
+    'theremin.md',
+    'ring_resonator.md',
+    'pyweek38.md',
+    'ECE241_intrapredict.md',
+    'capstone_fall.md',
+    'capstone_demo2.md'
+  ];
+  
+  // Test which files exist
+  const existingFiles = [];
+  for (const file of commonFiles) {
+    try {
+      const response = await fetch(`content/${file}`, { method: 'HEAD' });
+      if (response.ok) {
+        existingFiles.push(file);
+      }
+    } catch (error) {
+      // File doesn't exist, skip it
+    }
+  }
+  
+  return existingFiles;
+}
+
+// Load all projects from markdown files
+async function loadProjects() {
+  const files = await getMarkdownFiles();
+  const projects = [];
+  let lastUpdated = '';
+  
+  for (const filename of files) {
+    try {
+      const response = await fetch(`content/${filename}`);
+      if (!response.ok) continue;
+      
+      const content = await response.text();
+      const { metadata, content: markdownContent } = parseFrontmatter(content);
+      
+      // Skip files without required metadata
+      if (!metadata.title || !metadata.publishedDate) {
+        continue;
+      }
+      
+      // Use filename (without .md) as ID
+      const id = filename.replace('.md', '');
+      
+      const project = {
+        id: id,
+        title: metadata.title,
+        description: metadata.description || '',
+        image: metadata.image || 'default.gif',
+        alt: metadata.alt || metadata.title,
+        publishedDate: metadata.publishedDate,
+        lastUpdated: metadata.lastUpdated,
+        externalLink: metadata.externalLink,
+        content: markdownContent,
+        hidden: metadata.hidden === 'true' || metadata.hidden === true
+      };
+      
+      // Skip hidden projects
+      if (!project.hidden) {
+        projects.push(project);
+      }
+      
+      // Track latest update
+      const projectDate = project.lastUpdated || project.publishedDate;
+      if (projectDate > lastUpdated) {
+        lastUpdated = projectDate;
+      }
+    } catch (error) {
+      console.warn(`Failed to load ${filename}:`, error);
+    }
+  }
+  
+  return { projects, lastUpdated };
 }
 
 // Gallery page
 function renderGallery() {
-  loadData()
+  loadProjects()
     .then(data => {
       // Update last updated
       const lastUpdatedEl = document.getElementById("last-updated");
@@ -117,7 +227,8 @@ function renderGallery() {
         `;
       }).join('');
     })
-    .catch(() => {
+    .catch(error => {
+      console.error('Error loading projects:', error);
       document.getElementById("gallery").innerHTML = 
         '<p class="loading">Error loading projects. Please try again later.</p>';
     });
@@ -126,78 +237,65 @@ function renderGallery() {
 // Subpage
 async function renderSubpage() {
   const params = new URLSearchParams(window.location.search);
-  const artId = params.get('id');
+  const projectId = params.get('id');
   const contentDiv = document.getElementById('content');
   
-  if (!artId) {
+  if (!projectId) {
     contentDiv.innerHTML = '<p>No project specified.</p>';
     return;
   }
 
-  // Handle special resume page
-  if (artId === 'resume') {
-    try {
-      const markdown = await loadMarkdown('resume');
-      if (markdown) {
-        // Extract title from first # header or use default
-        const titleMatch = markdown.match(/^# (.*)$/m);
-        const title = titleMatch ? titleMatch[1] : 'Resume';
-        
-        contentDiv.innerHTML = `
-          <h2>${title}</h2>
-          <div class="text-content">
-            ${parseMarkdown(markdown)}
-          </div>
-        `;
-      } else {
-        contentDiv.innerHTML = '<p>Resume file not found. Please add content/resume.md</p>';
-      }
-    } catch (error) {
-      contentDiv.innerHTML = '<p>Error loading resume.</p>';
-    }
-    return;
-  }
-
-  // Regular project handling
   try {
-    const data = await loadData();
-    const project = data.projects.find(p => p.id === parseInt(artId));
-    
-    if (!project) {
+    const response = await fetch(`content/${projectId}.md`);
+    if (!response.ok) {
       contentDiv.innerHTML = '<p>Project not found.</p>';
       return;
     }
-
-    // Get content
-    const markdown = await loadMarkdown(artId);
-    let content;
     
-    if (markdown) {
-      content = parseMarkdown(markdown);
-    } else if (project.detailedContent) {
-      content = parseMarkdown(project.detailedContent);
-    } else {
-      content = `<p>${project.description}</p>`;
+    const content = await response.text();
+    const { metadata, content: markdownContent } = parseFrontmatter(content);
+    
+    // Use metadata or fallback values
+    const title = metadata.title || 'Untitled Project';
+    const publishDate = metadata.publishedDate ? formatDate(metadata.publishedDate, true) : '';
+    const updateDate = metadata.lastUpdated ? 
+      ` • Updated ${formatDate(metadata.lastUpdated, true)}` : '';
+    
+    // Handle special case for resume (no image) or YouTube video
+    let imageSection = '';
+    if (projectId !== 'resume') {
+      if (metadata.youtube) {
+        // YouTube video embed
+        const youtubeId = metadata.youtube.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1] || metadata.youtube;
+        imageSection = `
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/${youtubeId}" 
+                    frameborder="0" allowfullscreen 
+                    title="${title} - YouTube Video"></iframe>
+          </div>
+        `;
+      } else {
+        // Regular image
+        imageSection = `
+          <div class="image-container">
+            <img src="assets/images/${metadata.image || 'default.gif'}" alt="${metadata.alt || title}" 
+                 onerror="this.src='./assets/images/default.gif'">
+          </div>
+        `;
+      }
     }
-    
-    // Build date string
-    const publishDate = formatDate(project.publishedDate, true);
-    const updateDate = project.lastUpdated ? 
-      ` • Updated ${formatDate(project.lastUpdated, true)}` : '';
     
     // Render content
     contentDiv.innerHTML = `
-      <h2>${project.title}</h2>
-      <div class="date">Published ${publishDate}${updateDate}</div>
-      <div class="image-container">
-        <img src="assets/images/${project.image}" alt="${project.alt}" 
-             onerror="this.src='./assets/images/default.gif'">
-      </div>
+      <h2>${title}</h2>
+      ${publishDate ? `<div class="date">Published ${publishDate}${updateDate}</div>` : ''}
+      ${imageSection}
       <div class="text-content">
-        ${content}
+        ${parseMarkdown(markdownContent)}
       </div>
     `;
   } catch (error) {
+    console.error('Error loading project:', error);
     contentDiv.innerHTML = '<p class="loading">Error loading project. Please try again later.</p>';
   }
 }
