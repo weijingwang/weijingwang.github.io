@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Example page - Weijing website</title>
   <meta name="description" content="Example page description">
-  <!-- Performance optimizations -->
   <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,12 +17,12 @@
     <h2>Example page</h2>
     <div class="date">Published undefined NaN, 0 • Updated Aug 10, 2025</div>
     
-              <div class="image-container">
-                <img src="assets/images/default.gif" alt="Example page" 
-                     loading="lazy"
-                     onerror="this.src='./assets/images/default.gif'">
-              </div>
-            
+            <div class="image-container">
+              <img src="assets/projects/example/default.gif" alt="Example page" 
+                   loading="lazy"
+                   onerror="this.src='./assets/global/default.gif'">
+            </div>
+          
     <div class="text-content">
       <h3>Project Overview</h3>
 <p>This is a <strong>bold statement</strong> about my project. It also has <em>italic text</em> for emphasis. You can visit my <a href="https://github.com/weijingwang" target="_blank" rel="noopener noreferrer">GitHub repository</a> to see the code.</p>
@@ -41,17 +40,35 @@
 <li>Database with PostgreSQL</li>
 <li>Cloud deployment on AWS</li>
 <p></ul><h3>Screenshots</h3></p>
-<figure><img src="assets/images/default.gif" alt="Main interface" loading="lazy"><figcaption>The main dashboard showing real-time data</figcaption></figure>
+<figure><img src="assets/projects/example/assets/images/default.gif" alt="Main interface" loading="lazy"><figcaption>The main dashboard showing real-time data</figcaption></figure>
 <p>This image shows the primary interface. Below is another view:</p>
-<p><img src="assets/images/default.gif" alt="Settings panel" loading="lazy"></p>
+<p><img src="assets/projects/example/assets/images/default.gif" alt="Settings panel" loading="lazy"></p>
 <h3>Demo Video</h3>
 <p>Here's a demonstration of the project in action:</p>
-<figure><div class="video-container"><iframe src="https://www.youtube.com/embed/0J8V1FX33l8" frameborder="0" allowfullscreen loading="lazy"></iframe></div><figcaption>Complete walkthrough of all features</figcaption></figure>
+<figure><div class="video-container">
+        <iframe src="https://www.youtube.com/embed/0J8V1FX33l8" 
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div><figcaption>Complete walkthrough of all features</figcaption></figure>
 <h3>Tutorial Series</h3>
 <p>I also created a tutorial series explaining the implementation:</p>
-<figure><div class="video-container"><iframe src="https://www.youtube.com/embed/videoseries?list=PLx4AtxZhI6pdQVO3Ire1qrHj8c2FD9aWZ" frameborder="0" allowfullscreen loading="lazy"></iframe></div><figcaption>Step-by-step tutorials covering the entire project</figcaption></figure>
+<figure><div class="video-container">
+        <iframe src="https://www.youtube.com/embed/videoseries?list=PLx4AtxZhI6pdQVO3Ire1qrHj8c2FD9aWZ" 
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div><figcaption>Step-by-step tutorials covering the entire project</figcaption></figure>
 <h4>Short Demo Clip</h4>
-<figure><div class="video-container"><iframe src="https://www.youtube.com/embed/0J8V1FX33l8" frameborder="0" allowfullscreen loading="lazy"></iframe></div><figcaption>30-second overview of key features</figcaption></figure>
+<figure><div class="video-container">
+        <iframe src="https://www.youtube.com/embed/0J8V1FX33l8" 
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div><figcaption>30-second overview of key features</figcaption></figure>
 <h3>Implementation Notes</h3>
 <p>The core algorithm works by processing input data through multiple stages:</p>
 <p>1. <strong>Data validation</strong> - ensures input quality

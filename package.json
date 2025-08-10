@@ -4,9 +4,11 @@
   "description": "Static portfolio site generator",
   "main": "build-static.js",
   "scripts": {
+    "migrate": "node migrate-to-folders.js",
     "build": "node build-static.js",
     "clean": "node -e \"const fs = require('fs'); const path = require('path'); const filesToClean = ['index.html', 'styles.css', 'assets']; const files = fs.readdirSync(__dirname); const htmlFiles = files.filter(f => f.endsWith('.html')); filesToClean.push(...htmlFiles); filesToClean.forEach(file => { try { const filePath = path.join(__dirname, file); const stat = fs.statSync(filePath); if (stat.isDirectory()) { fs.rmSync(filePath, { recursive: true, force: true }); } else { fs.rmSync(filePath, { force: true }); } console.log('Cleaned', file); } catch (error) { /* ignore */ } });\"",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "migrate-and-build": "npm run migrate && npm run build"
   },
   "keywords": ["portfolio", "static-site", "github-pages"],
   "author": "Weijing Wang"

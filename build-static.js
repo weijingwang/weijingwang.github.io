@@ -1,7 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-// Utilities (copied from your portfolio.js)
+// Utilities
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -16,10 +16,10 @@ function formatDate(dateString, includeDay = false) {
     `${monthName} ${year}`;
 }
 
-function parseMarkdown(text) {
+function parseMarkdown(text, projectId) {
   if (!text) return '';
   
-  // Handle images and YouTube videos FIRST (before links) - WITH LAZY LOADING
+  // Handle images and YouTube videos FIRST - with proper path resolution
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)(?:\s*\{([^}]+)\})?/g, (match, alt, src, caption) => {
     // Check if it's a YouTube link
     const youtubeMatch = src.match(/(?:youtube\.com\/(?:watch\?v=|playlist\?list=)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
@@ -31,14 +31,31 @@ function parseMarkdown(text) {
         ? `https://www.youtube.com/embed/videoseries?list=${id}`
         : `https://www.youtube.com/embed/${id}`;
       
-      // Add loading="lazy" to YouTube iframes
-      const iframe = `<div class="video-container"><iframe src="${embedSrc}" frameborder="0" allowfullscreen loading="lazy"></iframe></div>`;
+      const iframe = `<div class="video-container">
+        <iframe src="${embedSrc}" 
+                frameborder="0" 
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div>`;
       
       return caption ? `<figure>${iframe}<figcaption>${caption}</figcaption></figure>` : iframe;
     }
     
-    // Regular image with lazy loading
-    const img = `<img src="${src}" alt="${alt}" loading="lazy">`;
+    // Handle image paths
+    let imagePath = src;
+    if (src.startsWith('./')) {
+      // Relative to project folder
+      imagePath = `assets/projects/${projectId}/${src.substring(2)}`;
+    } else if (src.startsWith('../global-assets/')) {
+      // Global asset
+      imagePath = `assets/global/${src.substring(17)}`;
+    } else if (!src.startsWith('http')) {
+      // Assume it's a project-local image
+      imagePath = `assets/projects/${projectId}/${src}`;
+    }
+    
+    const img = `<img src="${imagePath}" alt="${alt}" loading="lazy">`;
     return caption ? `<figure>${img}<figcaption>${caption}</figcaption></figure>` : img;
   });
   
@@ -81,7 +98,6 @@ function parseFrontmatter(content) {
   const [, yamlContent, markdownContent] = match;
   const metadata = {};
   
-  // Simple YAML parser for basic key-value pairs
   yamlContent.split('\n').forEach(line => {
     const colonIndex = line.indexOf(':');
     if (colonIndex > 0) {
@@ -94,84 +110,123 @@ function parseFrontmatter(content) {
   return { metadata, content: markdownContent };
 }
 
-// Load all projects from markdown files
+// Load all projects from new folder structure
 async function loadProjects() {
   const contentDir = path.join(__dirname, 'src', 'content');
-  const files = await fs.readdir(contentDir);
-  const markdownFiles = files.filter(f => f.endsWith('.md'));
   
-  const projects = [];
-  const hiddenProjects = [];
-  let lastUpdated = '';
-  
-  for (const filename of markdownFiles) {
-    try {
-      const content = await fs.readFile(path.join(contentDir, filename), 'utf8');
-      const { metadata, content: markdownContent } = parseFrontmatter(content);
+  try {
+    const items = await fs.readdir(contentDir);
+    const projectDirs = [];
+    
+    // Filter for directories and markdown files
+    for (const item of items) {
+      const itemPath = path.join(contentDir, item);
+      const stat = await fs.stat(itemPath);
       
-      // Use filename (without .md) as ID
-      const id = filename.replace('.md', '');
-      
-      const project = {
-        id: id,
-        title: metadata.title || 'Untitled',
-        description: metadata.description || '',
-        image: metadata.image || 'default.gif',
-        alt: metadata.alt || metadata.title || 'Untitled',
-        publishedDate: metadata.publishedDate,
-        lastUpdated: metadata.lastUpdated,
-        externalLink: metadata.externalLink,
-        content: markdownContent,
-        metadata: metadata,
-        hidden: metadata.hidden === 'true' || metadata.hidden === true
-      };
-      
-      console.log(`Processing ${filename}: hidden=${project.hidden}, title=${project.title}`);
-      
-      // Separate hidden projects (like resume) from gallery projects
-      if (project.hidden) {
-        hiddenProjects.push(project);
-      } else {
-        // Only require publishedDate for gallery projects
-        if (metadata.publishedDate) {
-          projects.push(project);
-        } else {
-          console.log(`Skipping ${filename} - no publishedDate and not hidden`);
+      if (stat.isDirectory()) {
+        // Check if directory has index.md
+        try {
+          await fs.access(path.join(itemPath, 'index.md'));
+          projectDirs.push(item);
+        } catch {
+          // No index.md, skip this directory
         }
+      } else if (item.endsWith('.md')) {
+        // Handle remaining flat .md files (for backward compatibility)
+        projectDirs.push(item.replace('.md', ''));
       }
-      
-      // Track latest update (include hidden projects in date calculation)
-      const projectDate = project.lastUpdated || project.publishedDate;
-      if (projectDate && projectDate > lastUpdated) {
-        lastUpdated = projectDate;
-      }
-    } catch (error) {
-      console.warn(`Failed to load ${filename}:`, error);
     }
+    
+    const projects = [];
+    const hiddenProjects = [];
+    let lastUpdated = '';
+    
+    for (const projectId of projectDirs) {
+      try {
+        let content;
+        let markdownPath;
+        
+        // Try folder structure first, then fall back to flat file
+        const folderPath = path.join(contentDir, projectId, 'index.md');
+        const flatPath = path.join(contentDir, `${projectId}.md`);
+        
+        try {
+          content = await fs.readFile(folderPath, 'utf8');
+          markdownPath = folderPath;
+        } catch {
+          content = await fs.readFile(flatPath, 'utf8');
+          markdownPath = flatPath;
+        }
+        
+        const { metadata, content: markdownContent } = parseFrontmatter(content);
+        
+        const project = {
+          id: projectId,
+          title: metadata.title || 'Untitled',
+          description: metadata.description || '',
+          image: metadata.image || 'default.gif',
+          alt: metadata.alt || metadata.title || 'Untitled',
+          publishedDate: metadata.publishedDate,
+          lastUpdated: metadata.lastUpdated,
+          externalLink: metadata.externalLink,
+          content: markdownContent,
+          metadata: metadata,
+          hidden: metadata.hidden === 'true' || metadata.hidden === true
+        };
+        
+        console.log(`Processing ${projectId}: hidden=${project.hidden}, title=${project.title}`);
+        
+        if (project.hidden) {
+          hiddenProjects.push(project);
+        } else {
+          if (metadata.publishedDate) {
+            projects.push(project);
+          } else {
+            console.log(`Skipping ${projectId} - no publishedDate and not hidden`);
+          }
+        }
+        
+        const projectDate = project.lastUpdated || project.publishedDate;
+        if (projectDate && projectDate > lastUpdated) {
+          lastUpdated = projectDate;
+        }
+      } catch (error) {
+        console.warn(`Failed to load ${projectId}:`, error);
+      }
+    }
+    
+    return { projects, hiddenProjects, lastUpdated };
+  } catch (error) {
+    console.error('Error reading content directory:', error);
+    return { projects: [], hiddenProjects: [], lastUpdated: '' };
   }
-  
-  return { projects, hiddenProjects, lastUpdated };
 }
 
-// Generate static index.html with lazy loading
+// Generate static index.html with optimized asset paths
 async function generateIndex(projects, lastUpdated) {
   const template = await fs.readFile(path.join(__dirname, 'src', 'index.html'), 'utf8');
   
-  // Sort projects by date (newest first)
   const sortedProjects = [...projects].sort((a, b) => 
     parseInt(b.publishedDate) - parseInt(a.publishedDate)
   );
   
-  // Generate gallery HTML with lazy loading
   const galleryHTML = sortedProjects.map(project => {
     const href = project.externalLink || `${project.id}.html`;
     const target = project.externalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
     
+    // Determine image path
+    let imagePath;
+    if (project.image.startsWith('../global-assets/')) {
+      imagePath = `assets/global/${project.image.substring(17)}`;
+    } else {
+      imagePath = `assets/projects/${project.id}/${project.image}`;
+    }
+    
     return `
       <a href="${href}" ${target} class="art-item">
-        <img src="assets/images/${project.image}" alt="${project.alt}" 
+        <img src="${imagePath}" alt="${project.alt}" 
              loading="lazy"
-             onerror="this.src='./assets/images/default.gif'">
+             onerror="this.src='./assets/global/default.gif'">
         <div class="description">
           <h3>${project.title}</h3>
           <p>${project.description}</p>
@@ -181,81 +236,75 @@ async function generateIndex(projects, lastUpdated) {
     `;
   }).join('');
   
-  // Generate last updated text
   const lastUpdatedHTML = lastUpdated ? 
     `<p id="last-updated" class="date">Last updated ${formatDate(lastUpdated, true)}</p>` : 
     '<p id="last-updated"></p>';
   
-  // Update the resume link to point to static HTML and add performance optimizations
   let staticHTML = template
     .replace('href="subpage.html?id=resume"', 'href="resume.html"')
     .replace('<div class="gallery" id="gallery"></div>', `<div class="gallery" id="gallery">${galleryHTML}</div>`)
     .replace('<p id="last-updated"></p>', lastUpdatedHTML)
-    .replace('<script src="portfolio.js"></script>', '') // Remove the dynamic script
+    .replace('<script src="portfolio.js"></script>', '')
     .replace('<head>', `<head>
-  <!-- Performance optimizations -->
   <link rel="preload" href="styles.css" as="style">
   <meta name="description" content="Weijing Wang's portfolio - projects from school and personal work">`)
-    .replace('src="assets/images/headshot.webp"', 'src="assets/images/headshot.webp" loading="eager"'); // Don't lazy load the main headshot
+    .replace('src="assets/images/headshot.webp"', 'src="assets/global/headshot.webp" loading="eager"');
   
   await fs.writeFile(path.join(__dirname, 'index.html'), staticHTML);
   console.log('Generated optimized index.html in root');
 }
 
-// Generate static subpage HTML files with lazy loading
+// Generate static subpage HTML files with new structure
 async function generateSubpages(projects, hiddenProjects) {
-  try {
-    console.log(`generateSubpages called with ${projects.length} projects and ${hiddenProjects ? hiddenProjects.length : 'undefined'} hidden projects`);
-    
-    // Combine both gallery projects and hidden projects for page generation
-    const allProjects = [...projects, ...(hiddenProjects || [])];
-    
-    console.log(`Generating pages for ${allProjects.length} total projects (${projects.length} gallery + ${hiddenProjects ? hiddenProjects.length : 0} hidden)`);
-    if (hiddenProjects && hiddenProjects.length > 0) {
-      console.log('Hidden projects:', hiddenProjects.map(p => p.id));
-    }
-    
-    for (const project of allProjects) {
-      try {
-        const title = project.title || 'Untitled Project';
-        const publishDate = project.publishedDate ? formatDate(project.publishedDate, true) : '';
-        const updateDate = project.lastUpdated ? 
-          ` • Updated ${formatDate(project.lastUpdated, true)}` : '';
-        
-        // Handle special case for resume (no image) or YouTube video - WITH LAZY LOADING
-        let imageSection = '';
-        if (project.id !== 'resume') {
-          if (project.metadata.youtube) {
-            // YouTube video embed with lazy loading
-            const youtubeId = project.metadata.youtube.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1] || project.metadata.youtube;
-            imageSection = `
-              <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/${youtubeId}" 
-                        frameborder="0" allowfullscreen loading="lazy"
-                        title="${title} - YouTube Video"></iframe>
-              </div>
-            `;
+  const allProjects = [...projects, ...(hiddenProjects || [])];
+  
+  for (const project of allProjects) {
+    try {
+      const title = project.title || 'Untitled Project';
+      const publishDate = project.publishedDate ? formatDate(project.publishedDate, true) : '';
+      const updateDate = project.lastUpdated ? 
+        ` • Updated ${formatDate(project.lastUpdated, true)}` : '';
+      
+      let imageSection = '';
+      if (project.id !== 'resume') {
+        if (project.metadata.youtube) {
+          // Regular YouTube embed
+          const youtubeId = project.metadata.youtube.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1] || project.metadata.youtube;
+          imageSection = `
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/${youtubeId}" 
+                      frameborder="0" 
+                      allowfullscreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+              </iframe>
+            </div>
+          `;
+        } else {
+          // Regular image with proper path resolution
+          let imagePath;
+          if (project.image.startsWith('../global-assets/')) {
+            imagePath = `assets/global/${project.image.substring(17)}`;
           } else {
-            // Regular image with lazy loading
-            imageSection = `
-              <div class="image-container">
-                <img src="assets/images/${project.image}" alt="${project.alt}" 
-                     loading="lazy"
-                     onerror="this.src='./assets/images/default.gif'">
-              </div>
-            `;
+            imagePath = `assets/projects/${project.id}/${project.image}`;
           }
+          
+          imageSection = `
+            <div class="image-container">
+              <img src="${imagePath}" alt="${project.alt}" 
+                   loading="lazy"
+                   onerror="this.src='./assets/global/default.gif'">
+            </div>
+          `;
         }
-        
-        // Generate the full HTML page with performance optimizations
-        const pageHTML = `<!DOCTYPE html>
+      }
+      
+      const pageHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} - Weijing website</title>
   <meta name="description" content="${project.description || title}">
-  <!-- Performance optimizations -->
   <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -269,7 +318,7 @@ async function generateSubpages(projects, hiddenProjects) {
     ${publishDate ? `<div class="date">Published ${publishDate}${updateDate}</div>` : ''}
     ${imageSection}
     <div class="text-content">
-      ${parseMarkdown(project.content)}
+      ${parseMarkdown(project.content, project.id)}
     </div>
   </div>
 
@@ -278,28 +327,83 @@ async function generateSubpages(projects, hiddenProjects) {
   </div>
 </body>
 </html>`;
-        
-        await fs.writeFile(path.join(__dirname, `${project.id}.html`), pageHTML);
-        console.log(`Generated optimized ${project.id}.html in root`);
-      } catch (error) {
-        console.error(`Error generating page for ${project.id}:`, error);
-      }
+      
+      await fs.writeFile(path.join(__dirname, `${project.id}.html`), pageHTML);
+      console.log(`Generated optimized ${project.id}.html`);
+    } catch (error) {
+      console.error(`Error generating page for ${project.id}:`, error);
     }
-  } catch (error) {
-    console.error('Error in generateSubpages:', error);
-    throw error;
   }
 }
 
-// Copy static assets
+// Copy static assets with new structure
 async function copyAssets() {
   // Copy CSS
   await fs.copyFile(path.join(__dirname, 'src', 'styles.css'), path.join(__dirname, 'styles.css'));
   console.log('Copied styles.css to root');
   
-  // Copy assets directory
-  await fs.cp(path.join(__dirname, 'src', 'assets'), path.join(__dirname, 'assets'), { recursive: true });
-  console.log('Copied assets directory to root');
+  // Create assets structure
+  const assetsRoot = path.join(__dirname, 'assets');
+  const globalDir = path.join(assetsRoot, 'global');
+  const projectsDir = path.join(assetsRoot, 'projects');
+  
+  await fs.mkdir(globalDir, { recursive: true });
+  await fs.mkdir(projectsDir, { recursive: true });
+  
+  // Copy global assets
+  try {
+    const globalAssetsDir = path.join(__dirname, 'src', 'global-assets');
+    const globalFiles = await fs.readdir(globalAssetsDir);
+    for (const file of globalFiles) {
+      await fs.copyFile(
+        path.join(globalAssetsDir, file),
+        path.join(globalDir, file)
+      );
+    }
+    console.log(`Copied ${globalFiles.length} global assets`);
+  } catch (error) {
+    console.log('No global-assets directory found, checking for old structure...');
+    
+    // Fallback: copy from old images directory
+    try {
+      const oldImagesDir = path.join(__dirname, 'src', 'assets', 'images');
+      await fs.copyFile(path.join(oldImagesDir, 'headshot.webp'), path.join(globalDir, 'headshot.webp'));
+      await fs.copyFile(path.join(oldImagesDir, 'default.gif'), path.join(globalDir, 'default.gif'));
+      console.log('Copied global assets from old structure');
+    } catch (error) {
+      console.warn('Could not copy global assets from old structure:', error.message);
+    }
+  }
+  
+  // Copy project assets
+  const contentDir = path.join(__dirname, 'src', 'content');
+  try {
+    const items = await fs.readdir(contentDir);
+    
+    for (const item of items) {
+      const itemPath = path.join(contentDir, item);
+      const stat = await fs.stat(itemPath);
+      
+      if (stat.isDirectory()) {
+        // Copy all files except index.md from project directory
+        const projectDir = path.join(projectsDir, item);
+        await fs.mkdir(projectDir, { recursive: true });
+        
+        const projectFiles = await fs.readdir(itemPath);
+        for (const file of projectFiles) {
+          if (file !== 'index.md') {
+            await fs.copyFile(
+              path.join(itemPath, file),
+              path.join(projectDir, file)
+            );
+          }
+        }
+        console.log(`Copied assets for project: ${item}`);
+      }
+    }
+  } catch (error) {
+    console.warn('Error copying project assets:', error.message);
+  }
 }
 
 // Clean root directory (remove generated files)
@@ -334,7 +438,7 @@ async function cleanRoot() {
 // Main build function
 async function build() {
   try {
-    console.log('Building optimized static site to root...');
+    console.log('Building optimized static site with new folder structure...');
     
     // Clean previous build
     await cleanRoot();
@@ -345,17 +449,16 @@ async function build() {
     
     // Generate pages in root
     await generateIndex(projects, lastUpdated);
-    console.log('About to generate subpages...');
     await generateSubpages(projects, hiddenProjects);
     await copyAssets();
     
-    console.log('✅ Optimized static site built successfully in root directory!');
-    console.log('📈 Performance features added:');
-    console.log('   - Lazy loading for all images and videos');
+    console.log('✅ Optimized static site built successfully!');
+    console.log('📈 Performance features:');
+    console.log('   - Lazy loading for all images');
+    console.log('   - Standard YouTube embeds');
+    console.log('   - Organized folder structure per project');
     console.log('   - Preloaded CSS for faster rendering');
-    console.log('   - Meta descriptions for better SEO');
-    console.log('You can now deploy the root directory to GitHub Pages');
-    console.log('Source files are in ./src/');
+    console.log('\n🚀 Deploy the root directory to GitHub Pages');
   } catch (error) {
     console.error('Build failed:', error);
     process.exit(1);
