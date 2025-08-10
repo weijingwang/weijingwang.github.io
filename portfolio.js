@@ -109,18 +109,20 @@ async function getMarkdownFiles() {
   
   // Fallback list - you can expand this or create a manifest.json file
   const commonFiles = [
-    'resume.md',
-    'pyweek34.md',
-    'pyweek35.md',
-    'ECE120A.md',
-    'ECE153A.md',
-    'pyweek36.md',
-    'theremin.md',
-    'ring_resonator.md',
-    'pyweek38.md',
-    'ECE241_intrapredict.md',
-    'capstone_fall.md',
-    'capstone_demo2.md'
+    "resume.json",
+    "pyweek34.json",
+    "pyweek35.json",
+    "ECE120A.json",
+    "ECE153A.json",
+    "pyweek36.json",
+    "theremin.json",
+    "ring_resonator.json",
+    "pyweek38.json",
+    "pyweek39.json",
+    "ECE241_intrapredict.json",
+    "example.json",
+    "cvision.json",
+    "ECE281B.json"
   ];
   
   // Test which files exist
@@ -158,8 +160,8 @@ async function loadProjects() {
         continue;
       }
       
-      // Use filename (without .md) as ID
-      const id = filename.replace('.md', '');
+      // Use filename (without .json) as ID
+      const id = filename.replace('.json', '');
       
       const project = {
         id: id,
@@ -246,7 +248,7 @@ async function renderSubpage() {
   }
 
   try {
-    const response = await fetch(`content/${projectId}.md`);
+    const response = await fetch(`content/${projectId}.json`);
     if (!response.ok) {
       contentDiv.innerHTML = '<p>Project not found.</p>';
       return;
