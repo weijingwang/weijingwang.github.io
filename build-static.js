@@ -19,7 +19,7 @@ function formatDate(dateString, includeDay = false) {
 function parseMarkdown(text) {
   if (!text) return '';
   
-  // Handle images and YouTube videos FIRST (before links)
+  // Handle images and YouTube videos FIRST (before links) - WITH LAZY LOADING
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)(?:\s*\{([^}]+)\})?/g, (match, alt, src, caption) => {
     // Check if it's a YouTube link
     const youtubeMatch = src.match(/(?:youtube\.com\/(?:watch\?v=|playlist\?list=)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
@@ -31,13 +31,14 @@ function parseMarkdown(text) {
         ? `https://www.youtube.com/embed/videoseries?list=${id}`
         : `https://www.youtube.com/embed/${id}`;
       
-      const iframe = `<div class="video-container"><iframe src="${embedSrc}" frameborder="0" allowfullscreen></iframe></div>`;
+      // Add loading="lazy" to YouTube iframes
+      const iframe = `<div class="video-container"><iframe src="${embedSrc}" frameborder="0" allowfullscreen loading="lazy"></iframe></div>`;
       
       return caption ? `<figure>${iframe}<figcaption>${caption}</figcaption></figure>` : iframe;
     }
     
-    // Regular image
-    const img = `<img src="${src}" alt="${alt}">`;
+    // Regular image with lazy loading
+    const img = `<img src="${src}" alt="${alt}" loading="lazy">`;
     return caption ? `<figure>${img}<figcaption>${caption}</figcaption></figure>` : img;
   });
   
@@ -152,7 +153,7 @@ async function loadProjects() {
   return { projects, hiddenProjects, lastUpdated };
 }
 
-// Generate static index.html
+// Generate static index.html with lazy loading
 async function generateIndex(projects, lastUpdated) {
   const template = await fs.readFile(path.join(__dirname, 'src', 'index.html'), 'utf8');
   
@@ -161,7 +162,7 @@ async function generateIndex(projects, lastUpdated) {
     parseInt(b.publishedDate) - parseInt(a.publishedDate)
   );
   
-  // Generate gallery HTML
+  // Generate gallery HTML with lazy loading
   const galleryHTML = sortedProjects.map(project => {
     const href = project.externalLink || `${project.id}.html`;
     const target = project.externalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
@@ -169,6 +170,7 @@ async function generateIndex(projects, lastUpdated) {
     return `
       <a href="${href}" ${target} class="art-item">
         <img src="assets/images/${project.image}" alt="${project.alt}" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>${project.title}</h3>
@@ -184,18 +186,23 @@ async function generateIndex(projects, lastUpdated) {
     `<p id="last-updated" class="date">Last updated ${formatDate(lastUpdated, true)}</p>` : 
     '<p id="last-updated"></p>';
   
-  // Update the resume link to point to static HTML
+  // Update the resume link to point to static HTML and add performance optimizations
   let staticHTML = template
     .replace('href="subpage.html?id=resume"', 'href="resume.html"')
     .replace('<div class="gallery" id="gallery"></div>', `<div class="gallery" id="gallery">${galleryHTML}</div>`)
     .replace('<p id="last-updated"></p>', lastUpdatedHTML)
-    .replace('<script src="portfolio.js"></script>', ''); // Remove the dynamic script
+    .replace('<script src="portfolio.js"></script>', '') // Remove the dynamic script
+    .replace('<head>', `<head>
+  <!-- Performance optimizations -->
+  <link rel="preload" href="styles.css" as="style">
+  <meta name="description" content="Weijing Wang's portfolio - projects from school and personal work">`)
+    .replace('src="assets/images/headshot.webp"', 'src="assets/images/headshot.webp" loading="eager"'); // Don't lazy load the main headshot
   
   await fs.writeFile(path.join(__dirname, 'index.html'), staticHTML);
-  console.log('Generated index.html in root');
+  console.log('Generated optimized index.html in root');
 }
 
-// Generate static subpage HTML files
+// Generate static subpage HTML files with lazy loading
 async function generateSubpages(projects, hiddenProjects) {
   try {
     console.log(`generateSubpages called with ${projects.length} projects and ${hiddenProjects ? hiddenProjects.length : 'undefined'} hidden projects`);
@@ -215,37 +222,41 @@ async function generateSubpages(projects, hiddenProjects) {
         const updateDate = project.lastUpdated ? 
           ` • Updated ${formatDate(project.lastUpdated, true)}` : '';
         
-        // Handle special case for resume (no image) or YouTube video
+        // Handle special case for resume (no image) or YouTube video - WITH LAZY LOADING
         let imageSection = '';
         if (project.id !== 'resume') {
           if (project.metadata.youtube) {
-            // YouTube video embed
+            // YouTube video embed with lazy loading
             const youtubeId = project.metadata.youtube.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1] || project.metadata.youtube;
             imageSection = `
               <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/${youtubeId}" 
-                        frameborder="0" allowfullscreen 
+                        frameborder="0" allowfullscreen loading="lazy"
                         title="${title} - YouTube Video"></iframe>
               </div>
             `;
           } else {
-            // Regular image
+            // Regular image with lazy loading
             imageSection = `
               <div class="image-container">
                 <img src="assets/images/${project.image}" alt="${project.alt}" 
+                     loading="lazy"
                      onerror="this.src='./assets/images/default.gif'">
               </div>
             `;
           }
         }
         
-        // Generate the full HTML page
+        // Generate the full HTML page with performance optimizations
         const pageHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title} - Weijing website</title>
+  <meta name="description" content="${project.description || title}">
+  <!-- Performance optimizations -->
+  <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -269,7 +280,7 @@ async function generateSubpages(projects, hiddenProjects) {
 </html>`;
         
         await fs.writeFile(path.join(__dirname, `${project.id}.html`), pageHTML);
-        console.log(`Generated ${project.id}.html in root`);
+        console.log(`Generated optimized ${project.id}.html in root`);
       } catch (error) {
         console.error(`Error generating page for ${project.id}:`, error);
       }
@@ -323,7 +334,7 @@ async function cleanRoot() {
 // Main build function
 async function build() {
   try {
-    console.log('Building static site to root...');
+    console.log('Building optimized static site to root...');
     
     // Clean previous build
     await cleanRoot();
@@ -338,7 +349,11 @@ async function build() {
     await generateSubpages(projects, hiddenProjects);
     await copyAssets();
     
-    console.log('✅ Static site built successfully in root directory!');
+    console.log('✅ Optimized static site built successfully in root directory!');
+    console.log('📈 Performance features added:');
+    console.log('   - Lazy loading for all images and videos');
+    console.log('   - Preloaded CSS for faster rendering');
+    console.log('   - Meta descriptions for better SEO');
     console.log('You can now deploy the root directory to GitHub Pages');
     console.log('Source files are in ./src/');
   } catch (error) {

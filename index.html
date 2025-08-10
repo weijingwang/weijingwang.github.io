@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Performance optimizations -->
+  <link rel="preload" href="styles.css" as="style">
+  <meta name="description" content="Weijing Wang's portfolio - projects from school and personal work">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weijing website</title>
@@ -12,7 +15,7 @@
   </header>
 
   <div class="intro">
-    <img src="assets/images/headshot.webp" alt="Weijing image">
+    <img src="assets/images/headshot.webp" loading="eager" alt="Weijing image">
     <div>
       <p>Welcome! Here you can find my current and past projects from school and personal work.</p>
       <p id="last-updated" class="date">Last updated Aug 10, 2025</p>
@@ -28,6 +31,7 @@
   <div class="gallery" id="gallery">
       <a href="cvision.html"  class="art-item">
         <img src="assets/images/cvision2.webp" alt="cvision" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>CVision</h3>
@@ -38,6 +42,7 @@
     
       <a href="ECE281B.html"  class="art-item">
         <img src="assets/images/gs_00161.webp" alt="Kavli hall" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>Kavli hall thing</h3>
@@ -48,6 +53,7 @@
     
       <a href="pyweek39.html"  class="art-item">
         <img src="assets/images/pyweek39.webp" alt="pyweek39 entry" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>Pyweek 39 - Golden Hound</h3>
@@ -58,6 +64,7 @@
     
       <a href="ECE241_intrapredict.html"  class="art-item">
         <img src="assets/images/ECE241_intrapredict.webp" alt="ECE241 project" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>H.264 intraprediction modes</h3>
@@ -68,6 +75,7 @@
     
       <a href="ECE153A.html"  class="art-item">
         <img src="assets/images/ECE153A.webp" alt="ECE153A project" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>FPGA chromatic tuner</h3>
@@ -78,6 +86,7 @@
     
       <a href="pyweek38.html"  class="art-item">
         <img src="assets/images/pyweek38.webp" alt="pyweek38 entry" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>Pyweek 38 - Knight's Honor</h3>
@@ -88,6 +97,7 @@
     
       <a href="ring_resonator.html"  class="art-item">
         <img src="assets/images/ring_resonator.webp" alt="University of Tokyo summer research" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>University of Tokyo summer research intern</h3>
@@ -98,6 +108,7 @@
     
       <a href="theremin.html"  class="art-item">
         <img src="assets/images/theremin.webp" alt="ECE137B project" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>Theremin design project</h3>
@@ -108,6 +119,7 @@
     
       <a href="ECE120A.html"  class="art-item">
         <img src="assets/images/ECE120A.webp" alt="ECE120A project" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>NMOS fabrication class</h3>
@@ -118,6 +130,7 @@
     
       <a href="pyweek36.html"  class="art-item">
         <img src="assets/images/pyweek36.webp" alt="pyweek36 entry" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>Pyweek 36 - apocalypse darkness rats</h3>
@@ -128,6 +141,7 @@
     
       <a href="pyweek35.html"  class="art-item">
         <img src="assets/images/pyweek35.webp" alt="pyweek35 entry" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>PyWeek 35 - Chinkara goat paradise</h3>
@@ -138,6 +152,7 @@
     
       <a href="pyweek34.html"  class="art-item">
         <img src="assets/images/pyweek34.webp" alt="pyweek34 entry" 
+             loading="lazy"
              onerror="this.src='./assets/images/default.gif'">
         <div class="description">
           <h3>PyWeek 34 - Tasty Red Bean Simulator</h3>

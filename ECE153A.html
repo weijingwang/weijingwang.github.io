@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FPGA chromatic tuner - Weijing website</title>
+  <meta name="description" content="ECE153A FPGA final project of chromatic tuner. Includes realtime tuner screen and spectrogram.">
+  <!-- Performance optimizations -->
+  <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,6 +20,7 @@
     
               <div class="image-container">
                 <img src="assets/images/ECE153A.webp" alt="ECE153A project" 
+                     loading="lazy"
                      onerror="this.src='./assets/images/default.gif'">
               </div>
             
