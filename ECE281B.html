@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kavli hall thing - Weijing website</title>
-  <meta name="description" content="Reconstruct building">
+  <title>Kavli hall 3d reconstruction - Weijing website</title>
+  <meta name="description" content="Reconstruct using superpoint+superglue, colmap, gaussian splatting">
   <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,7 +14,7 @@
   </header>
 
   <div class="content" id="content">
-    <h2>Kavli hall thing</h2>
+    <h2>Kavli hall 3d reconstruction</h2>
     <div class="date">Published May 16, 2025 • Updated Aug 10, 2025</div>
     
             <div class="image-container">
@@ -24,9 +24,17 @@
             </div>
           
     <div class="text-content">
-      <p>asdfh asdofij asdfij gaussian splat colmap nerf</p>
-<h3>WIP</h3>
-asdfoih asdofij asdfoij asodif
+      <p>Computer vision grad class at UCSB ECE 281B project 1 where we went though pipeline of making 3D construction of Kavli building given many pictures of it from different views.</p>
+<h3>Step 1</h3>
+Made manual keypoint matches by hand and computed homography and fundemental matrix.
+<h3>Step 2</h3>
+Use superpoint+superglue to automate keypoint selection
+<h3>Step 3</h3>
+Use colmap to make keypoint matches to make 3d point cloud.
+<h3>Step 4</h3>
+Use gaussian splatting to render point cloud.
+<h3>Thoughts</h3>
+Could have got better reconstruction if had more views (get entire building in one shot like aerial view) and also if utilized GPS metadata, or used depth map like depth pro.
     </div>
   </div>
 

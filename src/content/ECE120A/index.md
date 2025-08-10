@@ -7,7 +7,4 @@ publishedDate: 20240320
 lastUpdated: 20250810
 hidden: false
 ---
-asoigfhsgthu eriguhfsdljmvsd airufhsldfghlsdf
-
-## WIP
-a;soifdhvdf aweifhdzvn awerifdshkjn
+Made NMOS transistors in the UCSB instructional cleanroom for undergrad class ECE120A final project. Took pretty much entire quarter of being in cleanroom.
