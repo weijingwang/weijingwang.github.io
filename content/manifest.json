@@ -1,18 +1,18 @@
 {
   "files": [
-    "resume.json",
-    "pyweek34.json",
-    "pyweek35.json",
-    "ECE120A.json",
-    "ECE153A.json",
-    "pyweek36.json",
-    "theremin.json",
-    "ring_resonator.json",
-    "pyweek38.json",
-    "pyweek39.json",
-    "ECE241_intrapredict.json",
-    "example.json",
-    "cvision.json",
-    "ECE281B.json"
+    "resume.md",
+    "pyweek34.md",
+    "pyweek35.md",
+    "ECE120A.md",
+    "ECE153A.md",
+    "pyweek36.md",
+    "theremin.md",
+    "ring_resonator.md",
+    "pyweek38.md",
+    "pyweek39.md",
+    "ECE241_intrapredict.md",
+    "example.md",
+    "cvision.md",
+    "ECE281B.md"
   ]
 }
