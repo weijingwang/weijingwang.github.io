@@ -6,7 +6,7 @@ Latest updated date can be put in markdown files and will be reflected in index.
 
 ## How to build
 In home directory do:
-```npm build```
+```npm run build```
 
 ## How to add stuff
 In src/contents you can create a new project. Project contains a default image and an index.md markdown file you can edit. Can look at example or other ones for the metadata you need to put at top of index.md. When done, just build with npm and everything will show up.
