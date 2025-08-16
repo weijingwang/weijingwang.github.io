@@ -1,6 +1,6 @@
 ---
 title: CVision - a navigator for the visually impaired
-description: UCSB ECE capstone project
+description: UCSB ECE award winning capstone project
 image: cvision2.webp
 alt: cvision
 youtube: https://www.youtube.com/watch?v=NxqoAR_yYxM
