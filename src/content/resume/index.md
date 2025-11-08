@@ -30,7 +30,7 @@ hidden: true
 ### Goleta Star — Santa Barbara, CA  
 **Electrical Engineering Intern (continued part-time during M.S.)** | Jun 2025 – Present  
 - Developed a SAR image labeling and recognition pipeline using YOLO-based detection and SAM-based prompt generation for automatic annotation.  
-- First-author paper *"YOLOv8 AI model for recognizing objects in SAR imagery"*, accepted for presentation at SPIE Defense + Commercial Sensing 2026.
+- First-author paper *"YOLOv8 AI model for recognizing objects in SAR imagery"*, accepted at SPIE Defense + Commercial Sensing 2026.
 
 ### CViSion (UCSB ECE Capstone Project) — Santa Barbara, CA  
 **Team Lead & Lead Developer** | Sep 2024 – Jun 2025  
@@ -53,14 +53,14 @@ hidden: true
 - **Pyweek.org:** 13-time Python game jam participant since 2018; led team to 2nd place in 2023 and 2025.  
 - **Analog Theremin:** Built an analog theremin using heterodyning; simulated circuit behavior in LTspice.  
 - **FPGA Chromatic Tuner:** Implemented a real-time chromatic tuner on Artix A7 FPGA using Vivado/Vitis for signal acquisition and processing.  
-- **H.264 Intra Prediction:** Implemented and analyzed 4×4 luma prediction modes in Python for multimedia compression coursework.
+- **H.264 Intra Prediction:** Implemented and analyzed 4×4 luma prediction modes from H.264 in Python.
 
 ---
 
 ## Skills
 
-**Programming:** Python, PyTorch, C++, Verilog, MATLAB, SQL, Unix, Shell
+**Programming:** Python, C++, Verilog, MATLAB, SQL, Unix
 
-**Tools:** Vivado, Vitis, Keil  
+**Tools:** PyTorch, NumPy, OpenCV, Vivado, Vitis, Keil, Blender  
 
 **Languages:** English (native), Mandarin Chinese (fluent), Japanese (conversational)
