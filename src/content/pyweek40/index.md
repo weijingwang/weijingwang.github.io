@@ -4,7 +4,7 @@ description: Team entry: For Pyweek 20th Anniversary!!! Grow this plant in a pos
 image: pyweek40.webp
 alt: pyweek40 entry
 youtube: https://youtu.be/2aH0D9nvOcU?si=K9Fr3g3uUFOXT7EO
-publishedDate: 20251108
+publishedDate: 20250928
 lastUpdated: 20251108
 hidden: false
 ---

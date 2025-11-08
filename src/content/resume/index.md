@@ -4,6 +4,7 @@ description: Weijing's short resume
 image:
 alt: Weijing's short resume
 publishedDate: 20250809
+lastUpdated: 20251108
 hidden: true
 ---
 **Email:** weijing at ucsb dot edu  

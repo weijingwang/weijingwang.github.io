@@ -18,68 +18,69 @@ function formatDate(dateString, includeDay = false) {
 
 function parseMarkdown(text, projectId) {
   if (!text) return '';
-  
-  // Handle images and YouTube videos FIRST - with proper path resolution
+
+  // --- Handle images and YouTube videos FIRST ---
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)(?:\s*\{([^}]+)\})?/g, (match, alt, src, caption) => {
     // Check if it's a YouTube link
     const youtubeMatch = src.match(/(?:youtube\.com\/(?:watch\?v=|playlist\?list=)|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    
+
     if (youtubeMatch) {
       const id = youtubeMatch[1];
       const isPlaylist = src.includes('playlist');
-      const embedSrc = isPlaylist 
-        ? `https://www.youtube.com/embed/videoseries?list=${id}`
-        : `https://www.youtube.com/embed/${id}`;
-      
+      const base = 'https://www.youtube-nocookie.com/embed/';
+      const embedSrc = isPlaylist
+        ? `${base}videoseries?list=${id}&origin=${encodeURIComponent('https://weijingwang.github.io')}`
+        : `${base}${id}?origin=${encodeURIComponent('https://weijingwang.github.io')}`;
+
       const iframe = `<div class="video-container">
-        <iframe src="${embedSrc}" 
-                frameborder="0" 
+        <iframe src="${embedSrc}"
+                referrerpolicy="strict-origin-when-cross-origin"
+                frameborder="0"
                 allowfullscreen
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
         </iframe>
       </div>`;
-      
-      return caption ? `<figure>${iframe}<figcaption>${caption}</figcaption></figure>` : iframe;
+
+      return caption
+        ? `<figure>${iframe}<figcaption>${caption}</figcaption></figure>`
+        : iframe;
     }
-    
-    // Handle image paths
+
+    // Otherwise, handle as image
     let imagePath = src;
     if (src.startsWith('./')) {
-      // Relative to project folder
       imagePath = `assets/projects/${projectId}/${src.substring(2)}`;
     } else if (src.startsWith('../global-assets/')) {
-      // Global asset
       imagePath = `assets/global/${src.substring(17)}`;
     } else if (!src.startsWith('http')) {
-      // Assume it's a project-local image
       imagePath = `assets/projects/${projectId}/${src}`;
     }
-    
+
     const img = `<img src="${imagePath}" alt="${alt}" loading="lazy">`;
     return caption ? `<figure>${img}<figcaption>${caption}</figcaption></figure>` : img;
   });
-  
-  // Then handle other formatting
+
+  // --- Then handle other Markdown formatting ---
   text = text
     .replace(/^# .*$/gm, '') // Remove main title
     .replace(/^## (.*$)/gm, '<h3>$1</h3>') // Headers
     .replace(/^### (.*$)/gm, '<h4>$1</h4>')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
     .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
-    .replace(/`(.*?)`/g, '<code>$1</code>') // Code
+    .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>') // Links
     .replace(/^- (.+)$/gm, '<li>$1</li>'); // Lists
-  
-  // Wrap consecutive list items in <ul>
+
+  // Wrap consecutive <li> items in <ul>
   text = text.replace(/(<li>.*?<\/li>\s*)+/gs, match => `<ul>${match}</ul>`);
-  
-  // Convert paragraphs
+
+  // --- Convert paragraphs safely ---
   return text
     .split('\n\n')
     .map(block => block.trim())
-    .filter(block => block)
+    .filter(Boolean)
     .map(block => {
-      // Don't wrap headers, lists, figures, or videos in paragraphs
+      // Don't wrap headers, lists, figures, or videos
       if (block.match(/^<(h\d|ul|figure|div class="video)/)) return block;
       return `<p>${block}</p>`;
     })
