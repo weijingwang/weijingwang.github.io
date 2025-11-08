@@ -1,71 +1,65 @@
 ---
 title: Weijing Resume
 description: Weijing's short resume
-image: 
+image:
 alt: Weijing's short resume
 publishedDate: 20250809
 hidden: true
 ---
 **Email:** weijing at ucsb dot edu  
 
+---
 
 ## Education
 
-**UC Santa Barbara** - Santa Barbara, CA  
-*M.S. Electrical Engineering* | Sep 2025 - Present
+**University of California, Santa Barbara** — Santa Barbara, CA  
+*M.S. Electrical Engineering (GPA: 3.77 as of Nov 2025)* | Sep 2025 – Jun 2026 (expected)
 
-**UC Santa Barbara** - Santa Barbara, CA  
-*B.S. Electrical Engineering, GPA: 3.70* | Sep 2021 - Jun 2025
+**University of California, Santa Barbara** — Santa Barbara, CA  
+*B.S. Electrical Engineering (GPA: 3.71)* | Sep 2021 – Jun 2025
 
-**Orange County School of the Arts** - Santa Ana, CA  
-*High School Diploma, Guitar Conservatory* | Sep 2016 - Jun 2021
-
+---
 
 ## Experience
 
-### Goleta Star - Santa Barbara, CA
-**Electrical Engineering Intern** | Jun 2025 - Present
-- Building a SAR image object recognition pipeline with YOLO and an automatic prompt generator for SAM on SAR images by taking an EO to SAR approach using multiview geometry and SAM
+### Shivkumar Chandrasekaran Research Group, UC Santa Barbara — Santa Barbara, CA  
+**Graduate Researcher** | Oct 2025 – Present  
+- Researching novel AI architectures with low weight norms for robustness against adversarial attacks.
 
-### Cvision (UCSB ECE award winning capstone project) - Santa Barbara, CA
-**Team Lead and Main Developer** | Sep 2024 - Jun 2025
-- **Distinguished Technical Achievement in Multidisciplinary Engineering:** Developed a real-time assistive technology with Professor Shivkumar Chandrasekaran for visually impaired people using computer vision DNN models and HRTF spatial audio for sound cues
-- **Research:** Designed experiments to evaluate models for speed, accuracy and flickering (DepthAnything2, DepthPro, MoGe, YOLOv8, and GroundedSAM1/2)
+### Goleta Star — Santa Barbara, CA  
+**Electrical Engineering Intern (continued part-time during M.S.)** | Jun 2025 – Present  
+- Developed a SAR image labeling and recognition pipeline using YOLO-based detection and SAM-based prompt generation for automatic annotation.  
+- First-author paper *"YOLOv8 AI model for recognizing objects in SAR imagery"*, accepted for presentation at SPIE Defense + Commercial Sensing 2026.
 
-### University of Tokyo - Tokyo, Japan
-**Research Intern** | Jun 2024 - Aug 2024
-- **New optical comb design:** Derived the output of a new, small and efficient optical comb generator using ring resonators and a time-dependent phase modulator with a low frequency RF voltage in Professor Yoshiaki Nakano's lab
-- **MATLAB simulations:** Wrote MATLAB simulation to find an optimal set of coupling coefficients and ring sizes for the desired comb shape
+### CViSion (UCSB ECE Capstone Project) — Santa Barbara, CA  
+**Team Lead & Lead Developer** | Sep 2024 – Jun 2025  
+- Received Distinguished Technical Achievement in Multidisciplinary Engineering.  
+- Led a 12-member team to develop a real-time assistive tool for the visually impaired using YOLOv8, DepthAnythingV2, and HRTF-based spatial audio; benchmarked models for speed and accuracy.
 
-### Pyweek.org
-**Game Jam Participant** | Apr 2018 - Mar 2025
-- **Fast Python prototyping:** Completed this biannual, week-long competition 12 times since 8th grade. Art, music and code from scratch
-- **Team leadership:** Led a diverse team of different majors in 2023 and got second place in team entries. Efficient coordination and communication
+### University of Tokyo — Tokyo, Japan  
+**Research Intern** | Jun 2024 – Aug 2024  
+- Derived the output of a compact optical comb generator using ring resonators and a time-dependent phase modulator driven by a low-frequency RF signal in Professor Yoshiaki Nakano’s lab.  
+- Developed MATLAB simulations to optimize coupling coefficients and ring sizes for the desired comb spectrum.
 
-### Innova Electronics - Irvine, CA
-**Machine Learning Intern** | Jul 2022 - Sep 2022
-- **SQL trends analysis:** Analyzed automotive OBD-II DTC code database in SQL to identify vehicle issue trends according to Year/Make/Model/Engine
-- **Machine Learning:** Applied k-clustering on database to group DTC codes. Efforts led up to eventual productization of AI-generated fix recommendation system
+### Innova Electronics — Irvine, CA  
+**Engineering Intern** | Jul 2022 – Sep 2022  
+- Analyzed automotive OBD-II DTC data using SQL and k-means clustering; work informed later AI-based fix recommendation efforts.
 
+---
 
 ## Projects
 
-**H.264 Intra prediction mode analysis**  
-Implemented H.264 4x4 luma intra prediction to find mode usage across large image dataset for the Multimedia compression graduate class ECE 241
+- **Pyweek.org:** 13-time Python game jam participant since 2018; led team to 2nd place in 2023 and 2025.  
+- **Analog Theremin:** Built an analog theremin using heterodyning; simulated circuit behavior in LTspice.  
+- **FPGA Chromatic Tuner:** Implemented a real-time chromatic tuner on Artix A7 FPGA using Vivado/Vitis for signal acquisition and processing.  
+- **H.264 Intra Prediction:** Implemented and analyzed 4×4 luma prediction modes in Python for multimedia compression coursework.
 
-**Analog theremin**  
-Designed and built a working analog theremin using heterodyning. Simulations with LTspice
-
-**Chromatic Tuner**  
-FPGA Artix A7 implementation of a real-time chromatic tuner using Vivado and Vitus environments
-
-**NMOS cleanroom fabrication**  
-Fabricated and characterized NMOS transistors in the instructional cleanroom. Used mask aligners, profilometer, HF, and other cleanroom tools
-
-
+---
 
 ## Skills
 
-**Languages:** Python, C++, Verilog, Matlab, Latex, SQL, Unix, Shell
+**Programming:** Python, PyTorch, C++, Verilog, MATLAB, SQL, Unix, Shell
 
-**Programs:** Vivado, Vitus, Keil (Microcontroller)
+**Tools:** Vivado, Vitis, Keil  
+
+**Languages:** English (native), Mandarin Chinese (fluent), Japanese (conversational)
