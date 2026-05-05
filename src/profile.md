@@ -6,7 +6,7 @@ lastUpdated: 20260505
 # Weijing Wang
 
 <!-- Welcome! Here you can find my current and past projects from school and personal work. -->
-Welcome! I completed my MS in Electrical and Computer Engineering at the University of California, Santa Barbara (UCSB), where I was advised by [Shiv Chandrasekaran](https://scg.ece.ucsb.edu/people.html).
+Welcome! I'm working on my MS in Electrical and Computer Engineering at the University of California, Santa Barbara (UCSB), where I am being advised by [Shiv Chandrasekaran](https://scg.ece.ucsb.edu/people.html).
 <!-- 
 My thesis and current research is on interpretability, generalization and robustness in neural networks by via construction and with approximation-theory point of view. I am also broadly interested in signal/image processing and reconstruction/inverse problems. -->
 
