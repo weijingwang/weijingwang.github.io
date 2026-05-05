@@ -27,43 +27,67 @@ img {
   pointer-events: none;
 }
 
-/* Header */
-header {
-  background: #2c3e50;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
 h1 {
   font-size: 2rem;
 }
 
-/* Intro */
-.intro {
-  max-width: 800px;
+.intro-grid {
+  width: calc(100% - 40px);
+  max-width: 1200px;
   margin: 20px auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
+  gap: 25px;
+  align-items: stretch;
+}
+
+/* Intro */
+.intro,
+.news {
   padding: 20px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.intro {
   display: flex;
   align-items: center;
   gap: 30px;
 }
 
 .intro img {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+}
+
+.intro-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .intro p {
   font-size: 1.1rem;
   color: #555;
   margin-bottom: 15px;
+}
+
+.intro-content p a {
+  color: #3498db;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.intro-content p a:hover {
+  color: #2980b9;
+}
+
+.profile-name {
+  color: #2c3e50;
+  margin-bottom: 8px;
 }
 
 .contact-links {
@@ -83,6 +107,50 @@ h1 {
 .contact-links a:hover {
   background: #3498db;
   color: white;
+}
+
+.news {
+  min-width: 0;
+}
+
+.news h2 {
+  font-size: 1.15rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.news ul {
+  list-style: none;
+}
+
+.news li {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.news time {
+  color: #777;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.news span {
+  min-width: 0;
+}
+
+.news a {
+  color: #3498db;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.news a:hover {
+  color: #2980b9;
 }
 
 /* Dates */
@@ -141,16 +209,33 @@ h1 {
 
 /* Content pages */
 .content {
-  max-width: 800px;
+  width: calc(100% - 40px);
+  max-width: 1000px;
   margin: 20px auto;
-  padding: 30px;
+  padding: 28px 34px 36px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+.content-nav {
+  margin-bottom: 18px;
+}
+
+.content-nav a {
+  color: #3498db;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.content-nav a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .content h2 {
-  font-size: 2rem;
+  font-size: 2.1rem;
   margin-bottom: 15px;
   color: #2c3e50;
   text-align: center;
@@ -164,8 +249,9 @@ h1 {
 
 .image-container {
   width: 100%;
-  max-height: 400px;
-  margin: 20px 0;
+  max-width: 760px;
+  max-height: 340px;
+  margin: 22px auto 28px;
   border-radius: 8px;
   overflow: hidden;
   background: #f9f9f9;
@@ -182,24 +268,26 @@ h1 {
 
 /* Text content - simplified formatting */
 .text-content {
-  max-width: none;
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: 1.08rem;
 }
 
 .text-content p {
-  margin-bottom: 16px;
-  line-height: 1.7;
+  margin-bottom: 18px;
+  line-height: 1.75;
 }
 
 .text-content h3 {
-  margin: 25px 0 12px 0;
+  margin: 30px 0 12px 0;
   color: #2c3e50;
-  font-size: 1.3rem;
+  font-size: 1.45rem;
 }
 
 .text-content h4 {
   margin: 20px 0 10px 0;
   color: #2c3e50;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .text-content ul {
@@ -274,21 +362,6 @@ h1 {
   border: 0;
 }
 
-.back-btn {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 24px;
-  background: #3498db;
-  color: white;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-  font-weight: 500;
-}
-
-.back-btn:hover {
-  background: #2980b9;
-}
-
 .loading {
   text-align: center;
   padding: 60px;
@@ -297,7 +370,11 @@ h1 {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 720px) {
+  .intro-grid {
+    grid-template-columns: 1fr;
+  }
+
   .intro {
     flex-direction: column;
     text-align: center;
@@ -305,6 +382,16 @@ h1 {
 
   .contact-links {
     justify-content: center;
+  }
+
+  .news {
+    text-align: left;
+  }
+
+  .news li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-bottom: 12px;
   }
 
   .gallery {
@@ -323,6 +410,7 @@ h1 {
   .content {
     margin: 10px;
     padding: 20px;
+    width: auto;
   }
 
   h1 {

@@ -9,26 +9,32 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <a href="index.html"><h1>Weijing website</h1></a>
-  </header>
-
-  <div class="intro">
-    <img src="assets/global/headshot.webp" loading="eager" alt="Weijing image">
-    <div>
-      <p>Welcome! Here you can find my current and past projects from school and personal work.</p>
-      <p id="last-updated" class="date">Last updated Dec 25, 2025</p>
-      <div class="contact-links">
-        <a href="resume.html">Resume</a>
-        <a href="https://github.com/weijingwang" target="_blank">GitHub</a>
-        <a href="https://www.linkedin.com/in/weijing-wang-445150231" target="_blank">LinkedIn</a>
-        <a href="https://pyweek.org/u/speedlimit35/" target="_blank">PyWeek</a>
-      </div>
+  <div class="intro-grid">
+    <div class="intro">
+      <img src="assets/global/headshot.webp" loading="eager" alt="Weijing image">
+      <div class="intro-content" id="profile"><h1 class="profile-name">Weijing Wang</h1>
+        <p>Welcome! I completed my MS in Electrical and Computer Engineering at the University of California, Santa Barbara (UCSB), where I was advised by <a href="https://scg.ece.ucsb.edu/people.html">Shiv Chandrasekaran</a>.</p>
+        <p>Here you can find my current and past projects from school and personal work.</p>
+        <p id="last-updated" class="date">Last updated May 5, 2026</p>
+        <div class="contact-links"><a href="resume.html">Resume</a><a href="https://github.com/weijingwang">GitHub</a><a href="https://www.linkedin.com/in/weijing-wang-445150231">LinkedIn</a><a href="https://pyweek.org/u/speedlimit35/">PyWeek</a></div></div>
     </div>
+    <section class="news" aria-labelledby="news-heading" id="news"><h2 id="news-heading">News</h2>
+        <ul>
+          <li>
+            <time datetime="2026-05">May 2026</time>
+            <span>Presented at SPIE DCS 2026: <a href="https://spie.org/defense-security/presentation/YOLOV8-AI-model-for-recognizing-objects-in-SAR-imagery/14026-17">YOLOV8 AI model for recognizing objects in SAR imagery</a></span>
+          </li>
+      
+          <li>
+            <time datetime="2026-04">Apr 2026</time>
+            <span>Submitted Master's Thesis: Stone Nets: Interpretable and Incrementally Constructed Neural Networks for Classification without Backpropagation (1 year embargo)</span>
+          </li>
+      
+        </ul></section>
   </div>
 
   <div class="gallery" id="gallery">
-      <a href="pyweek40.html"  class="art-item">
+      <a href="pyweek40.html" class="art-item">
         <img src="assets/projects/pyweek40/pyweek40.webp" alt="pyweek40 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -39,7 +45,7 @@
         </div>
       </a>
     
-      <a href="cvision.html"  class="art-item">
+      <a href="cvision.html" class="art-item">
         <img src="assets/projects/cvision/cvision2.webp" alt="cvision" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -50,7 +56,7 @@
         </div>
       </a>
     
-      <a href="ECE281B.html"  class="art-item">
+      <a href="ECE281B.html" class="art-item">
         <img src="assets/projects/ECE281B/gs_00161.webp" alt="Kavli hall" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -61,7 +67,7 @@
         </div>
       </a>
     
-      <a href="pyweek39.html"  class="art-item">
+      <a href="pyweek39.html" class="art-item">
         <img src="assets/projects/pyweek39/pyweek39.webp" alt="pyweek39 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -72,7 +78,7 @@
         </div>
       </a>
     
-      <a href="ECE241_intrapredict.html"  class="art-item">
+      <a href="ECE241_intrapredict.html" class="art-item">
         <img src="assets/projects/ECE241_intrapredict/ECE241_intrapredict.webp" alt="ECE241 project" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -83,7 +89,7 @@
         </div>
       </a>
     
-      <a href="ECE153A.html"  class="art-item">
+      <a href="ECE153A.html" class="art-item">
         <img src="assets/projects/ECE153A/ECE153A.webp" alt="ECE153A project" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -94,7 +100,7 @@
         </div>
       </a>
     
-      <a href="pyweek38.html"  class="art-item">
+      <a href="pyweek38.html" class="art-item">
         <img src="assets/projects/pyweek38/pyweek38.webp" alt="pyweek38 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -105,7 +111,7 @@
         </div>
       </a>
     
-      <a href="ring_resonator.html"  class="art-item">
+      <a href="ring_resonator.html" class="art-item">
         <img src="assets/projects/ring_resonator/ring_resonator.webp" alt="University of Tokyo summer research" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -116,7 +122,7 @@
         </div>
       </a>
     
-      <a href="theremin.html"  class="art-item">
+      <a href="theremin.html" class="art-item">
         <img src="assets/projects/theremin/theremin.webp" alt="ECE137B project" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -127,7 +133,7 @@
         </div>
       </a>
     
-      <a href="ECE120A.html"  class="art-item">
+      <a href="ECE120A.html" class="art-item">
         <img src="assets/projects/ECE120A/ECE120A.webp" alt="ECE120A project" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -138,7 +144,7 @@
         </div>
       </a>
     
-      <a href="pyweek36.html"  class="art-item">
+      <a href="pyweek36.html" class="art-item">
         <img src="assets/projects/pyweek36/pyweek36.webp" alt="pyweek36 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -149,7 +155,7 @@
         </div>
       </a>
     
-      <a href="pyweek35.html"  class="art-item">
+      <a href="pyweek35.html" class="art-item">
         <img src="assets/projects/pyweek35/pyweek35.webp" alt="pyweek35 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -160,7 +166,7 @@
         </div>
       </a>
     
-      <a href="pyweek34.html"  class="art-item">
+      <a href="pyweek34.html" class="art-item">
         <img src="assets/projects/pyweek34/pyweek34.webp" alt="pyweek34 entry" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">

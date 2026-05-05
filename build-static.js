@@ -16,6 +16,124 @@ function formatDate(dateString, includeDay = false) {
     `${monthName} ${year}`;
 }
 
+function formatNewsDate(dateString) {
+  const compactDate = dateString.replaceAll('-', '');
+  return formatDate(compactDate, compactDate.length === 8);
+}
+
+function parseInlineMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
+function getLatestDate(...dates) {
+  return dates.filter(Boolean).sort().pop() || '';
+}
+
+function renderProfileLink(label, href) {
+  return `<a href="${href}">${label}</a>`;
+}
+
+async function loadProfile() {
+  const profilePath = path.join(__dirname, 'src', 'profile.md');
+
+  try {
+    const profileMarkdown = await fs.readFile(profilePath, 'utf8');
+    const { metadata, content } = parseFrontmatter(profileMarkdown);
+    const withoutComments = content.replace(/<!--[\s\S]*?-->/g, '');
+    const lines = withoutComments
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean);
+
+    let name = metadata.name || 'Weijing';
+    const paragraphs = [];
+    const links = [];
+
+    for (const line of lines) {
+      const headingMatch = line.match(/^#\s+(.+)$/);
+      const linkMatch = line.match(/^-\s+\[([^\]]+)\]\(([^)]+)\)$/);
+
+      if (headingMatch) {
+        name = headingMatch[1];
+      } else if (linkMatch) {
+        links.push(renderProfileLink(linkMatch[1], linkMatch[2]));
+      } else if (!line.startsWith('---')) {
+        paragraphs.push(`<p>${parseInlineMarkdown(line)}</p>`);
+      }
+    }
+
+    const linksHTML = links.length ? `<div class="contact-links">${links.join('')}</div>` : '';
+
+    return {
+      html: `<h1 class="profile-name">${name}</h1>
+        ${paragraphs.join('\n        ')}
+        <p id="last-updated"></p>
+        ${linksHTML}`,
+      publishedDate: metadata.publishedDate || '',
+      lastUpdated: metadata.lastUpdated || ''
+    };
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.warn('Failed to load profile:', error.message);
+    }
+
+    return {
+      html: `<h1 class="profile-name">Weijing</h1>
+        <p>Welcome! Here you can find my current and past projects from school and personal work.</p>
+        <p id="last-updated"></p>`,
+      publishedDate: '',
+      lastUpdated: ''
+    };
+  }
+}
+
+async function loadNews() {
+  const newsPath = path.join(__dirname, 'src', 'news.md');
+
+  try {
+    const newsMarkdown = await fs.readFile(newsPath, 'utf8');
+    const { metadata, content } = parseFrontmatter(newsMarkdown);
+    const withoutComments = content.replace(/<!--[\s\S]*?-->/g, '');
+    const items = withoutComments
+      .split('\n')
+      .map(line => line.trim())
+      .map(line => line.match(/^-\s+(\d{4}(?:-\d{2}){1,2}):\s+(.+)$/))
+      .filter(Boolean)
+      .map(([, date, text]) => `
+          <li>
+            <time datetime="${date}">${formatNewsDate(date)}</time>
+            <span>${parseInlineMarkdown(text)}</span>
+          </li>
+      `)
+      .join('');
+
+    if (!items) {
+      return {
+        html: '',
+        publishedDate: metadata.publishedDate || '',
+        lastUpdated: metadata.lastUpdated || ''
+      };
+    }
+
+    return {
+      html: `<h2 id="news-heading">News</h2>
+        <ul>${items}
+        </ul>`,
+      publishedDate: metadata.publishedDate || '',
+      lastUpdated: metadata.lastUpdated || ''
+    };
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.warn('Failed to load news:', error.message);
+    }
+    return { html: '', publishedDate: '', lastUpdated: '' };
+  }
+}
+
 function parseMarkdown(text, projectId) {
   if (!text) return '';
 
@@ -68,7 +186,7 @@ function parseMarkdown(text, projectId) {
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
     .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
     .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>') // Links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>') // Links
     .replace(/^- (.+)$/gm, '<li>$1</li>'); // Lists
 
   // Wrap consecutive <li> items in <ul>
@@ -206,6 +324,11 @@ async function loadProjects() {
 // Generate static index.html with optimized asset paths
 async function generateIndex(projects, lastUpdated) {
   const template = await fs.readFile(path.join(__dirname, 'src', 'index.html'), 'utf8');
+  const profile = await loadProfile();
+  const news = await loadNews();
+  const newsDate = news.lastUpdated || news.publishedDate;
+  const profileDate = profile.lastUpdated || profile.publishedDate;
+  const siteLastUpdated = getLatestDate(lastUpdated, newsDate, profileDate);
   
   const sortedProjects = [...projects].sort((a, b) => 
     parseInt(b.publishedDate) - parseInt(a.publishedDate)
@@ -213,7 +336,6 @@ async function generateIndex(projects, lastUpdated) {
   
   const galleryHTML = sortedProjects.map(project => {
     const href = project.externalLink || `${project.id}.html`;
-    const target = project.externalLink ? 'target="_blank" rel="noopener noreferrer"' : '';
     
     // Determine image path
     let imagePath;
@@ -224,7 +346,7 @@ async function generateIndex(projects, lastUpdated) {
     }
     
     return `
-      <a href="${href}" ${target} class="art-item">
+      <a href="${href}" class="art-item">
         <img src="${imagePath}" alt="${project.alt}" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -237,13 +359,15 @@ async function generateIndex(projects, lastUpdated) {
     `;
   }).join('');
   
-  const lastUpdatedHTML = lastUpdated ? 
-    `<p id="last-updated" class="date">Last updated ${formatDate(lastUpdated, true)}</p>` : 
+  const lastUpdatedHTML = siteLastUpdated ? 
+    `<p id="last-updated" class="date">Last updated ${formatDate(siteLastUpdated, true)}</p>` : 
     '<p id="last-updated"></p>';
   
   let staticHTML = template
     .replace('href="subpage.html?id=resume"', 'href="resume.html"')
     .replace('<div class="gallery" id="gallery"></div>', `<div class="gallery" id="gallery">${galleryHTML}</div>`)
+    .replace('<div class="intro-content" id="profile"></div>', `<div class="intro-content" id="profile">${profile.html}</div>`)
+    .replace('<section class="news" aria-labelledby="news-heading" id="news"></section>', `<section class="news" aria-labelledby="news-heading" id="news">${news.html}</section>`)
     .replace('<p id="last-updated"></p>', lastUpdatedHTML)
     .replace('<script src="portfolio.js"></script>', '')
     .replace('<head>', `<head>
@@ -310,21 +434,16 @@ async function generateSubpages(projects, hiddenProjects) {
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <a href="index.html"><h1>Weijing website</h1></a>
-  </header>
-
   <div class="content" id="content">
+    <nav class="content-nav">
+      <a href="index.html">← Projects</a>
+    </nav>
     <h2>${title}</h2>
     ${publishDate ? `<div class="date">Published ${publishDate}${updateDate}</div>` : ''}
     ${imageSection}
     <div class="text-content">
       ${parseMarkdown(project.content, project.id)}
     </div>
-  </div>
-
-  <div style="text-align: center;">
-    <a href="index.html" class="back-btn">← Back to Projects</a>
   </div>
 </body>
 </html>`;
