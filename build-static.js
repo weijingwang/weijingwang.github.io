@@ -290,7 +290,9 @@ async function loadProjects() {
           externalLink: metadata.externalLink,
           content: markdownContent,
           metadata: metadata,
-          hidden: metadata.hidden === 'true' || metadata.hidden === true
+          hidden: metadata.hidden === 'true' || metadata.hidden === true,
+          featured: metadata.featured === 'true' || metadata.featured === true,
+          priority: metadata.priority ? parseInt(metadata.priority) : 999
         };
         
         console.log(`Processing ${projectId}: hidden=${project.hidden}, title=${project.title}`);
@@ -330,11 +332,7 @@ async function generateIndex(projects, lastUpdated) {
   const profileDate = profile.lastUpdated || profile.publishedDate;
   const siteLastUpdated = getLatestDate(lastUpdated, newsDate, profileDate);
   
-  const sortedProjects = [...projects].sort((a, b) => 
-    parseInt(b.publishedDate) - parseInt(a.publishedDate)
-  );
-  
-  const galleryHTML = sortedProjects.map(project => {
+  const renderProjectCard = (project, className = 'art-item') => {
     const href = project.externalLink || `${project.id}.html`;
     
     // Determine image path
@@ -346,7 +344,7 @@ async function generateIndex(projects, lastUpdated) {
     }
     
     return `
-      <a href="${href}" class="art-item">
+      <a href="${href}" class="${className}">
         <img src="${imagePath}" alt="${project.alt}" 
              loading="lazy"
              onerror="this.src='./assets/global/default.gif'">
@@ -357,7 +355,37 @@ async function generateIndex(projects, lastUpdated) {
         </div>
       </a>
     `;
-  }).join('');
+  };
+
+  const featuredProjects = projects
+    .filter(project => project.featured)
+    .sort((a, b) => a.priority - b.priority || parseInt(b.publishedDate) - parseInt(a.publishedDate));
+
+  const otherProjects = projects
+    .filter(project => !project.featured)
+    .sort((a, b) => parseInt(b.publishedDate) - parseInt(a.publishedDate));
+
+  const featuredHTML = featuredProjects.map(project => renderProjectCard(project, 'art-item featured-item')).join('');
+  const otherHTML = otherProjects.map(project => renderProjectCard(project)).join('');
+
+  const projectsHTML = `
+  <section class="project-section selected-work">
+    <div class="section-heading">
+      <div class="section-eyebrow">Featured</div>
+      <h2>Selected Work</h2>
+      <!-- <p>Works related to my current research direction in ML.</p> -->
+    </div>
+    <div class="featured-gallery">${featuredHTML}</div>
+  </section>
+
+  <section class="project-section other-work">
+    <div class="section-heading">
+      <div class="section-eyebrow">Archive</div>
+      <h2>Other Projects</h2>
+      <!-- <p>Game jams, class projects, and other work.</p> -->
+    </div>
+    <div class="gallery" id="gallery">${otherHTML}</div>
+  </section>`;
   
   const lastUpdatedHTML = siteLastUpdated ? 
     `<p id="last-updated" class="date">Last updated ${formatDate(siteLastUpdated, true)}</p>` : 
@@ -365,7 +393,7 @@ async function generateIndex(projects, lastUpdated) {
   
   let staticHTML = template
     .replace('href="subpage.html?id=resume"', 'href="resume.html"')
-    .replace('<div class="gallery" id="gallery"></div>', `<div class="gallery" id="gallery">${galleryHTML}</div>`)
+    .replace('<main id="projects"></main>', `<main id="projects">${projectsHTML}</main>`)
     .replace('<div class="intro-content" id="profile"></div>', `<div class="intro-content" id="profile">${profile.html}</div>`)
     .replace('<section class="news" aria-labelledby="news-heading" id="news"></section>', `<section class="news" aria-labelledby="news-heading" id="news">${news.html}</section>`)
     .replace('<p id="last-updated"></p>', lastUpdatedHTML)
