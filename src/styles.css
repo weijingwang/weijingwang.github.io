@@ -160,23 +160,42 @@ h1 {
   font-style: italic;
 }
 
-.project-section {
+.section-card {
   max-width: 1200px;
   margin: 0 auto 18px;
   padding: 0 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-.section-heading {
-  margin: 46px 0 18px;
+.section-header {
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
 }
 
 .section-eyebrow {
   color: #888;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 3px;
+}
+
+.section-title {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.section-body {
+  padding: 18px 20px;
 }
 
 .section-heading h2 {

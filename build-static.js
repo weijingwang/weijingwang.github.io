@@ -369,23 +369,23 @@ async function generateIndex(projects, lastUpdated) {
   const otherHTML = otherProjects.map(project => renderProjectCard(project)).join('');
 
   const projectsHTML = `
-  <section class="project-section selected-work">
-    <div class="section-heading">
-      <div class="section-eyebrow">Featured</div>
-      <h2>Selected Work</h2>
-      <!-- <p>Works related to my current research direction in ML.</p> -->
-    </div>
-    <div class="featured-gallery">${featuredHTML}</div>
-  </section>
+    <section class="section-card selected-work">
+      <div class="section-header">
+        <h2>Selected Work</h2>
+      </div>
+      <div class="section-body">
+        <div class="featured-gallery">${featuredHTML}</div>
+      </div>
+    </section>
 
-  <section class="project-section other-work">
-    <div class="section-heading">
-      <div class="section-eyebrow">Archive</div>
-      <h2>Other Projects</h2>
-      <!-- <p>Game jams, class projects, and other work.</p> -->
-    </div>
-    <div class="gallery" id="gallery">${otherHTML}</div>
-  </section>`;
+    <section class="section-card other-work">
+      <div class="section-header">
+        <h2>Other Projects</h2>
+      </div>
+      <div class="section-body">
+        <div class="gallery" id="gallery">${otherHTML}</div>
+      </div>
+    </section>`;
   
   const lastUpdatedHTML = siteLastUpdated ? 
     `<p id="last-updated" class="date">Last updated ${formatDate(siteLastUpdated, true)}</p>` : 
