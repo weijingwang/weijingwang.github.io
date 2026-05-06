@@ -4,7 +4,7 @@ description: Weijing's short resume
 image:
 alt: Weijing's short resume
 publishedDate: 20250809
-lastUpdated: 20251225
+lastUpdated: 20260506
 hidden: true
 ---
 **Email:** weijing at ucsb dot edu  
@@ -14,7 +14,7 @@ hidden: true
 ## Education
 
 **University of California, Santa Barbara** — Santa Barbara, CA  
-*M.S. Electrical Engineering (GPA: 3.77 as of Dec 2025)* | Sep 2025 – Jun 2026 (expected)
+*M.S. Electrical Engineering (GPA: 3.80 as of May 2026)* | Sep 2025 – Jun 2026 (expected)
 
 **University of California, Santa Barbara** — Santa Barbara, CA  
 *B.S. Electrical Engineering (GPA: 3.71)* | Sep 2021 – Jun 2025
@@ -25,12 +25,12 @@ hidden: true
 
 ### Shivkumar Chandrasekaran Research Group, UC Santa Barbara — Santa Barbara, CA  
 **Graduate Researcher** | Oct 2025 – Present  
-- Researching novel AI architectures with low weight norms for robustness against adversarial attacks.
+Authored Master's thesis on interpretable neural networks for classification, focusing on developing algorithms that solve model parameters by construction rather than through backpropagation.
 
 ### Goleta Star — Santa Barbara, CA  
-**Electrical Engineering Intern** | Jun 2025 – Nov 2025  
+**Electrical Engineering Intern** | Jun 2025 – Present 
 - Developed a SAR image labeling and recognition pipeline using YOLO-based detection and SAM-based prompt generation for automatic annotation.  
-- First-author paper *"YOLOv8 AI model for recognizing objects in SAR imagery"*, submitted to SPIE Defense + Commercial Sensing 2026.
+- Lead Author & Presenter: *"YOLOv8 AI Model for Recognizing Objects in SAR Imagery"* at SPIE DCS 2026.
 
 ### CViSion (UCSB ECE Capstone Project) — Santa Barbara, CA  
 **Team Lead & Lead Developer** | Sep 2024 – Jun 2025  

@@ -5,12 +5,14 @@ lastUpdated: 20260505
 
 # Weijing Wang
 
+I’m an MS student in ECE at UCSB, advised by [Shiv Chandrasekaran](https://scg.ece.ucsb.edu/people.html). I work on neural network architectures, signal processing, and reconstruction, with recent work on backpropagation-free classification and SAR object detection.
 <!-- Welcome! Here you can find my current and past projects from school and personal work. -->
-Welcome! I'm working on my MS in Electrical and Computer Engineering at the University of California, Santa Barbara (UCSB), where I am being advised by [Shiv Chandrasekaran](https://scg.ece.ucsb.edu/people.html).
+<!-- I am a current MS in ECE at UCSB, where I am being advised by [Shiv Chandrasekaran](https://scg.ece.ucsb.edu/people.html). My work spans neural network architectures, signal processing, and reconstruction problems, with recent work on backpropagation-free classification and SAR object detection. -->
+<!-- I am broadly interested in DNNs, signal processing, and inverse/reconstruction problems. -->
 <!-- 
 My thesis and current research is on interpretability, generalization and robustness in neural networks by via construction and with approximation-theory point of view. I am also broadly interested in signal/image processing and reconstruction/inverse problems. -->
 
-Here you can find my current and past projects from school and personal work.
+<!-- Here you can find my current and past projects from school and personal work. -->
 
 - [Resume](resume.html)
 - [GitHub](https://github.com/weijingwang)
