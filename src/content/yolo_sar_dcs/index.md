@@ -6,6 +6,8 @@ alt: yolo on sar image
 publishedDate: 20260429
 lastUpdated: 20260519
 hidden: false
+featured: true
+priority: 2
 ---
 A YOLOv8 prediction of a SAR image tile. The hand-made labels are shown on the left and the predictions on the right.
 

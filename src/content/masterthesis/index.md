@@ -6,6 +6,8 @@ alt: dog explanation
 publishedDate: 20260418
 lastUpdated: 20260519
 hidden: false
+featured: true
+priority: 1
 ---
 
 An example explanation of a dog image query. The network can trace back to exactly which dog and cat pair made the decision and with pair was the most irrelevant.

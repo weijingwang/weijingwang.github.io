@@ -7,7 +7,7 @@ publishedDate: 20250516
 lastUpdated: 20250810
 hidden: false
 featured: true
-priority: 2
+priority: 4
 ---
 Computer vision grad class at UCSB ECE 281B project 1 where we went though pipeline of making 3D construction of Kavli building given many pictures of it from different views.
 
