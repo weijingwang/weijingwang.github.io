@@ -13,4 +13,4 @@ priority: 3
 
 The senior undergrad final project capstone [CVision](https://capstone.engineering.ucsb.edu/projects/cvision): a navigator for the visually impaired. We got the award: Most distinction in Multidisciplinary projects!!! We worked on with Professor Chandrasekaran at UCSB. Cvision uses YOLO and DepthAnythingV2 and some other tricks to deliver spatial sound cues with object names to the user wearing headphones. It also can read ArUco markers.
 
-Code can be found here: [https://github.com/jordanprescott/shiv_capstone/tree/main/depth_map/wjstuff/demo_9](https://github.com/jordanprescott/shiv_capstone/tree/main/depth_map/wjstuff/demo_9)
+Code can be found[here](https://github.com/jordanprescott/shiv_capstone/tree/main/depth_map/wjstuff/demo_9).
