@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone nets Master's thesis - Weijing website</title>
+  <meta name="description" content="Stone Nets: Interpretable and Incrementally Constructed Neural Networks for Classification without Backpropagation">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="content" id="content">
+    <nav class="content-nav">
+      <a href="index.html">← Projects</a>
+    </nav>
+    <h2>Stone nets Master's thesis</h2>
+    <div class="date">Published Apr 18, 2026 • Updated May 19, 2026</div>
+    
+            <div class="image-container">
+              <img src="assets/projects/masterthesis/oldstonedogs.webp" alt="dog explanation" 
+                   loading="lazy"
+                   onerror="this.src='./assets/global/default.gif'">
+            </div>
+          
+    <div class="text-content">
+      <p>An example explanation of a dog image query. The network can trace back to exactly which dog and cat pair made the decision and with pair was the most irrelevant.</p>
+<h3>Thesis Overview</h3>
+<p>My Master's thesis, done at UCSB and advised by <a href="https://scg.ece.ucsb.edu/people.html">Professor Shivkumar Chandrasekaran</a>, is about a novel way to construct neural networks without backpropogation. The goal was to design a neural network architecture that was interpretable by nature (traceable back to the training samples) but also with good generalization and robustness. This is important in critical applications (such as in medicine) where even a small error can not be tolerated. If there is an error, we should be able to debug it. Additionally, Stone nets can update learn from new training data on the fly. The thesis is under embargo for 1 year, releasing sometime around April 2027.</p>
+<p><img src="assets/projects/masterthesis/incremental3D.webp" alt="Incremental training" loading="lazy">
+Incremental training is possible with this method. This means our network can learn from new training data on the fly without forgetting. Example is on 2D checkerboard for visualization purposes.</p>
+    </div>
+  </div>
+</body>
+</html>
