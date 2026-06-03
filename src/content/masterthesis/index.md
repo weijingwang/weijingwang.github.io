@@ -4,7 +4,7 @@ description: Stone Nets: Interpretable and Incrementally Constructed Neural Netw
 image: oldstonedogs.webp
 alt: dog explanation
 publishedDate: 20260418
-lastUpdated: 20260519
+lastUpdated: 20260603
 hidden: false
 featured: true
 priority: 1
@@ -13,6 +13,8 @@ priority: 1
 An example explanation of a dog image query. The network can trace back to exactly which dog and cat pair made the decision and with pair was the most irrelevant.
 
 ## Thesis Overview
+
+Can see a draft at [here](https://drive.google.com/file/d/1Dt4R_CiykS7zOfCU9NmbJS-ao8VloyXT/view?usp=sharing).
 
 My Master's thesis, done at UCSB and advised by [Professor Shivkumar Chandrasekaran](https://scg.ece.ucsb.edu/people.html), is about a novel way to construct neural networks without backpropogation. The goal was to design a neural network architecture that was interpretable by nature (traceable back to the training samples) but also with good generalization and robustness. This is important in critical applications (such as in medicine) where even a small error can not be tolerated. If there is an error, we should be able to debug it. Additionally, Stone nets can update learn from new training data on the fly. The thesis is under embargo for 1 year, releasing sometime around April 2027.
 
