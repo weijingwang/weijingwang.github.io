@@ -14,7 +14,7 @@ My thesis and current research is on interpretability, generalization and robust
 
 <!-- Here you can find my current and past projects from school and personal work. -->
 
-- [Resume](https://drive.google.com/file/d/1xhvG4UIlBqGTgjKfO0UTBlHtA-LJZ9ZV/view?usp=sharing)
+- [Resume](https://drive.google.com/file/d/1Jqba8Mulc5jgIT64beT_7R0PJz9y0bQA/view?usp=sharing)
 - [GitHub](https://github.com/weijingwang)
 - [LinkedIn](https://www.linkedin.com/in/weijingw/)
 - [PyWeek](https://pyweek.org/u/speedlimit35/)
