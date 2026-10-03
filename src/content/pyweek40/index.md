@@ -1,6 +1,6 @@
 ---
 title: Pyweek 40 - Green Savior
-description: Team entry: For Pyweek 20th Anniversary!!! Grow this plant in a post-apocolyptic landscape
+description: Team entry: For Pyweek 20th Anniversary!!! Grow this plant in a post-apocalyptic landscape
 image: pyweek40.webp
 alt: pyweek40 entry
 youtube: https://youtu.be/2aH0D9nvOcU?si=K9Fr3g3uUFOXT7EO

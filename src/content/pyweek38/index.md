@@ -1,6 +1,6 @@
 ---
 title: Pyweek 38 - Knight's Honor
-description: Solo entry: Knight's Honor. A knights errant is seeking to perform extrodinary feats to elavate honor and fame when he finds a dwarf who is begging for a boon...
+description: Solo entry: Knight's Honor. A knights errant is seeking to perform extraordinary feats to elevate honor and fame when he finds a dwarf who is begging for a boon...
 image: pyweek38.webp
 alt: pyweek38 entry
 youtube: https://youtu.be/88IfGYGKoOI

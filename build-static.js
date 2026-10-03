@@ -456,7 +456,7 @@ async function generateSubpages(projects, hiddenProjects) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} - Weijing website</title>
+  <title>${title} - Weijing Wang</title>
   <meta name="description" content="${project.description || title}">
   <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css">

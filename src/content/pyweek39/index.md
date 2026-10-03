@@ -1,6 +1,6 @@
 ---
 title: Pyweek 39 - Golden Hound
-description: Solo entry: Golden Hound. Golden Hound is a game about a hungry dog that jumps into the water for fish in Calfifornian Gold Rush setting.
+description: Solo entry: Golden Hound. Golden Hound is a game about a hungry dog that jumps into the water for fish in Californian Gold Rush setting.
 image: pyweek39.webp
 alt: pyweek39 entry
 youtube: https://youtu.be/KjW4boHdQXA?si=lB2lwUqhEjlw88Nk

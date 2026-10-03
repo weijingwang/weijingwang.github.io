@@ -5,6 +5,7 @@ lastUpdated: 20260505
 
 # News
 
+- 2026-09: Submitted a game to a game jam: [Pyweek 42](https://pyweek.org/e/chinkaraoshim42/)
 - 2026-04: Presented at SPIE DCS 2026: [YOLOV8 AI model for recognizing objects in SAR imagery](https://spie.org/defense-security/presentation/YOLOV8-AI-model-for-recognizing-objects-in-SAR-imagery/14026-17)
 - 2026-04: Submitted Master's Thesis: [Stone Nets: Interpretable and Incrementally Constructed Neural Networks for Classification without Backpropagation](https://drive.google.com/file/d/1hKX1wPBadcnR2uC5fz5niXNrGSMH8bFo/view?usp=sharing)
 <!--

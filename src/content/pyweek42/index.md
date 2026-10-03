@@ -4,7 +4,7 @@ description: Team entry: Visual novel made for theme of Borrowed Time
 image: pyweek42.webp
 alt: pyweek42 entry
 # youtube: https://youtu.be/2aH0D9nvOcU?si=K9Fr3g3uUFOXT7EO
-publishedDate: 20261002
+publishedDate: 20260927
 lastUpdated: 20261002
 hidden: false
 ---
