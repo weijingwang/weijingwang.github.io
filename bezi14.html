@@ -16,9 +16,22 @@
     <h2>Peep the Animal</h2>
     <div class="date">Published Nov 6, 2026 • Updated Nov 6, 2026</div>
     
-            <div class="game-container">
-              <iframe src="https://itch.io/embed-upload/20063646?color=000000" frameborder="0" allowfullscreen></iframe>
+            <div class="game-wrap">
+              <div class="game-container">
+                <iframe src="https://itch.io/embed-upload/20063646?color=000000" frameborder="0" allowfullscreen></iframe>
+              </div>
             </div>
+            <script>
+              function fitGame() {
+                document.querySelectorAll('.game-wrap').forEach(w => {
+                  const s = Math.min(1, w.clientWidth / 802);
+                  w.style.setProperty('--game-scale', s);
+                  w.style.height = (622 * s) + 'px';
+                });
+              }
+              addEventListener('resize', fitGame);
+              fitGame();
+            </script>
           
     <div class="text-content">
       <p>Entry to Bezi jam 14 with <a href="https://www.kingemulee.com/">KINGEMU246</a> done in 4 days. Made in Godot and Kingemu drew all the art. I made the music and developed. You can play above or visit the itch page here: <a href="https://speedlimit35.itch.io/peep-the-animal">https://speedlimit35.itch.io/peep-the-animal</a></p>

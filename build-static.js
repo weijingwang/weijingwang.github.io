@@ -422,10 +422,24 @@ async function generateSubpages(projects, hiddenProjects) {
       if (project.id !== 'resume') {
         if (project.metadata.itch) {
           // Playable itch.io embed (use the embed-upload URL)
+          // Game needs an exact 802x622 frame, so scale it down visually on narrow screens
           imageSection = `
-            <div class="game-container">
-              <iframe src="${project.metadata.itch}" frameborder="0" allowfullscreen></iframe>
+            <div class="game-wrap">
+              <div class="game-container">
+                <iframe src="${project.metadata.itch}" frameborder="0" allowfullscreen></iframe>
+              </div>
             </div>
+            <script>
+              function fitGame() {
+                document.querySelectorAll('.game-wrap').forEach(w => {
+                  const s = Math.min(1, w.clientWidth / 802);
+                  w.style.setProperty('--game-scale', s);
+                  w.style.height = (622 * s) + 'px';
+                });
+              }
+              addEventListener('resize', fitGame);
+              fitGame();
+            </script>
           `;
         } else if (project.metadata.youtube) {
           // Regular YouTube embed

@@ -426,14 +426,22 @@ h1 {
 }
 
 /* Embedded itch.io games */
-.game-container {
+.game-wrap {
   position: relative;
+  width: 100%;
+  height: 622px; /* set by fitGame() on narrow screens */
+  margin: 20px 0;
+}
+
+.game-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
   /* itch embed adds a 1px border + 20px footer; game area must be exactly 800x600 */
   width: 802px;
   height: 622px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 20px 0;
+  transform-origin: top center;
+  transform: translateX(-50%) scale(var(--game-scale, 1));
 }
 
 .game-container iframe {
