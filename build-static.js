@@ -420,7 +420,14 @@ async function generateSubpages(projects, hiddenProjects) {
       
       let imageSection = '';
       if (project.id !== 'resume') {
-        if (project.metadata.youtube) {
+        if (project.metadata.itch) {
+          // Playable itch.io embed (use the embed-upload URL)
+          imageSection = `
+            <div class="game-container">
+              <iframe src="${project.metadata.itch}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          `;
+        } else if (project.metadata.youtube) {
           // Regular YouTube embed
           const youtubeId = project.metadata.youtube.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1] || project.metadata.youtube;
           imageSection = `

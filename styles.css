@@ -428,10 +428,11 @@ h1 {
 /* Embedded itch.io games */
 .game-container {
   position: relative;
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 800 / 620;
-  margin: 20px auto;
+  width: 800px;
+  height: 620px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 20px 0;
 }
 
 .game-container iframe {
