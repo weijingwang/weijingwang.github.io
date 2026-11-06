@@ -428,8 +428,9 @@ h1 {
 /* Embedded itch.io games */
 .game-container {
   position: relative;
-  width: 800px;
-  height: 620px;
+  /* itch embed adds a 1px border + 20px footer; game area must be exactly 800x600 */
+  width: 802px;
+  height: 622px;
   left: 50%;
   transform: translateX(-50%);
   margin: 20px 0;
