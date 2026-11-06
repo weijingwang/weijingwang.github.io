@@ -425,6 +425,24 @@ h1 {
   border: 0;
 }
 
+/* Embedded itch.io games */
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 800 / 620;
+  margin: 20px auto;
+}
+
+.game-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .loading {
   text-align: center;
   padding: 60px;

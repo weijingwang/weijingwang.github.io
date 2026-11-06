@@ -199,7 +199,7 @@ function parseMarkdown(text, projectId) {
     .filter(Boolean)
     .map(block => {
       // Don't wrap headers, lists, figures, or videos
-      if (block.match(/^<(h\d|ul|figure|div class="video)/)) return block;
+      if (block.match(/^<(h\d|ul|figure|div class="video|div class="game)/)) return block;
       return `<p>${block}</p>`;
     })
     .join('\n');

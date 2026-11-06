@@ -3,12 +3,12 @@ title: Pyweek 42 - I Thought Raising a Mythical Beast Would Be Easy, but Somehow
 description: Team entry: Visual novel made for theme of Borrowed Time
 image: pyweek42.webp
 alt: pyweek42 entry
-# youtube: https://youtu.be/2aH0D9nvOcU?si=K9Fr3g3uUFOXT7EO
+youtube: https://www.youtube.com/watch?v=4R1UioGsrSU
 publishedDate: 20260927
-lastUpdated: 20261002
+lastUpdated: 20261106
 hidden: false
 ---
-Team Chinkaraoshiman team entry for Pyweek 42 I did with Chis and Apex. The theme was "Borrowed Time". You can find our entry here: [https://pyweek.org/e/chinkaraoshim42/](https://pyweek.org/e/chinkaraoshim42/)
+Team Chinkaraoshiman team entry for Pyweek 42 I did with Chis and Apex. We got first place in the team category! The theme was "Borrowed Time". You can find our entry here: [https://pyweek.org/e/chinkaraoshim42/](https://pyweek.org/e/chinkaraoshim42/)
 
 ## Game Concept
 Its based on the popular video of the goat jumping into the fireplace. And it is a visual novel. We only had 2 days to make it so we used whatever ideas that came out.
